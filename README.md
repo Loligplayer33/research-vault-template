@@ -2,7 +2,7 @@
 
 A comprehensive, AI-ready Obsidian vault template for academic research, literature reviews, and synthesis. It is designed to help you actively engage with your sources and build cross-paper arguments using a structured, agent-assisted workflow.
 
-## 🚀 Getting Started
+## Getting Started
 
 To turn this generic template into your own project workspace, follow these setup steps:
 
