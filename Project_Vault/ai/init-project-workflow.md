@@ -23,6 +23,23 @@ This is a highly interactive, conversational process. You must work step-by-step
 
 ---
 
+## Phase 0: Environment Verification
+
+**Agent Action:** Ensure the user has completed the basic local setup required for the literature review workflows.
+
+Ask the user:
+1. Have you already installed the **Better BibTeX** extension in Zotero?
+2. Is the **Zotero Integration** community plugin enabled and connected in your Obsidian vault?
+
+*(If they say no, briefly explain that they need to install Better BibTeX from its GitHub releases into Zotero, and ensure Obsidian Safe Mode is off so the pre-packaged Zotero Integration plugin can run. You can reference the root `README.md` for full instructions.)*
+
+*Wait for response to confirm they are ready.*
+
+**Execution:** 
+- Update `ai/INIT_STATE.md`.
+
+---
+
 ## Phase 1: Discovery & Core Project Details
 
 **Agent Action:** Ask the user to define the core parameters of their research.
