@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>[Author Year] — Synthesis Integration Checklist Template</title>
+<style>
+  :root {
+    --bg: #fafaf7;
+    --ink: #1d1d1f;
+    --muted: #6b6b6b;
+    --border: #e3e3dc;
+    --card: #ffffff;
+
+    --pc: #2f7d4f;
+    --pc-bg: #e8f3ec;
+    --wt: #c47a2b;
+    --wt-bg: #fbf0e1;
+    --sp: #6d3fa1;
+    --sp-bg: #efe9f6;
+    --meta: #555;
+    --meta-bg: #ececec;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    padding-bottom: 60px;
+  }
+
+  header.page-head {
+    padding: 28px 32px 18px;
+    border-bottom: 1px solid var(--border);
+    background: #fff;
+  }
+  header.page-head h1 {
+    font-size: 22px;
+    margin: 0 0 6px;
+  }
+  header.page-head .meta {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0;
+  }
+  header.page-head .meta code {
+    background: #f3f3ee;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 12.5px;
+  }
+
+  .sticky-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    align-items: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  }
+  .progress-wrap {
+    flex: 1 1 280px;
+    min-width: 260px;
+  }
+  .progress-track {
+    background: #ebebe5;
+    border-radius: 999px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    background: linear-gradient(90deg, #2f7d4f, #6d3fa1);
+    height: 100%;
+    width: 0%;
+    transition: width 0.2s ease;
+  }
+  .progress-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .section-counts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .section-counts span { white-space: nowrap; }
+  .reset-btn {
+    border: 1px solid var(--border);
+    background: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    cursor: pointer;
+    color: var(--muted);
+  }
+  .reset-btn:hover {
+    border-color: #999;
+    color: var(--ink);
+  }
+
+  main { padding: 20px 32px 0; max-width: 940px; }
+
+  section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px 20px;
+    margin-bottom: 18px;
+  }
+  section h2 {
+    font-size: 17px;
+    margin: 0 0 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+  section h2 .count {
+    font-size: 12.5px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  section .sec-desc {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 12px;
+  }
+
+  .item {
+    display: grid;
+    grid-template-columns: 22px 54px 1fr;
+    gap: 10px;
+    padding: 10px 4px;
+    border-top: 1px solid #f1f1ec;
+    align-items: flex-start;
+  }
+  .item:first-of-type { border-top: none; }
+  .item.checked .item-body {
+    opacity: 0.5;
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+  }
+  .item input[type=checkbox] {
+    margin-top: 3px;
+    transform: scale(1.15);
+    cursor: pointer;
+    accent-color: #2f7d4f;
+  }
+  .tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-align: center;
+    display: inline-block;
+    min-width: 44px;
+    margin-top: 2px;
+  }
+  .tag.pc   { color: var(--pc);   background: var(--pc-bg);   border: 1px solid #c6e1d0; }
+  .tag.wt   { color: var(--wt);   background: var(--wt-bg);   border: 1px solid #f0d6a8; }
+  .tag.sp   { color: var(--sp);   background: var(--sp-bg);   border: 1px solid #d3c3e6; }
+  .tag.meta { color: var(--meta); background: var(--meta-bg); border: 1px solid #d2d2d2; }
+
+  .item-body p { margin: 0 0 6px; }
+  .item-body p:last-child { margin-bottom: 0; }
+  .item-body code {
+    background: #f3f3ee;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-size: 13px;
+  }
+  .item-body em.note-meta {
+    color: var(--muted);
+    font-style: normal;
+    font-size: 12.5px;
+  }
+
+  .callout {
+    margin: 4px 0 10px 86px;
+    padding: 12px 14px;
+    border-left: 3px solid var(--wt);
+    background: var(--wt-bg);
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
+  }
+  .callout.sp {
+    border-left-color: var(--sp);
+    background: var(--sp-bg);
+  }
+  .callout .callout-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--wt);
+    text-transform: uppercase;
+    margin: 0 0 6px;
+  }
+  .callout.sp .callout-label { color: var(--sp); }
+  .callout p { margin: 0 0 8px; }
+  .callout p:last-child { margin-bottom: 0; }
+
+  ol.priority {
+    margin: 8px 0 0 20px;
+    padding: 0;
+    color: var(--ink);
+  }
+  ol.priority li { margin-bottom: 4px; }
+  ol.priority li .note {
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .skipped-list {
+    margin: 10px 0 0 0;
+    padding-left: 18px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <h1>[Author] et al. ([Year]) — Synthesis Integration Checklist</h1>
+  <p class="meta">
+    <em>[Full Paper Title Here]</em>
+    · [Venue/Journal] [Year] · <code>[citekey]</code>
+  </p>
+</header>
+
+<div class="sticky-bar">
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel">0 / 0 completed</div>
+  </div>
+  <div class="section-counts" id="sectionCounts"></div>
+  <button class="reset-btn" id="resetBtn" title="Clear all checkboxes">Reset</button>
+</div>
+
+<main>
+
+<section id="sec-theme1" data-title="Theme 1: [Name]">
+  <h2>1. [Theme Name] <span class="count"></span></h2>
+  <p class="sec-desc">Brief description of why this paper contributes to this theme.</p>
+
+  <!-- Paper Contribution (PC) Item -->
+  <div class="item" data-id="theme1-pc1">
+    <input type="checkbox">
+    <span class="tag pc">PC</span>
+    <div class="item-body">
+      <p><strong>[Key finding or concept].</strong> Detailed description of the contribution, finding, or argument that needs to be integrated. <em class="note-meta">(§Section, p.X)</em></p>
+    </div>
+  </div>
+
+  <!-- Working Thoughts (WT) Callout & Action Item -->
+  <div class="callout">
+    <p class="callout-label">WT — append to existing Working Thoughts</p>
+    <p>[Draft paragraph or analytical thought detailing how this finding changes, supports, or challenges your current working theory.]</p>
+  </div>
+  <div class="item" data-id="theme1-wt">
+    <input type="checkbox">
+    <span class="tag wt">WT</span>
+    <div class="item-body">
+      <p>Append the orange callout above to <strong>Working Thoughts</strong> in <code>[Theme File/Location]</code>.</p>
+    </div>
+  </div>
+  
+  <!-- Synthesized Position (SP) Callout & Action Item -->
+  <div class="callout sp">
+    <p class="callout-label">SP — first draft</p>
+    <p>[Draft paragraph intended for the actual synthesis/manuscript, synthesizing this paper's insights with others.]</p>
+  </div>
+  <div class="item" data-id="theme1-sp">
+    <input type="checkbox">
+    <span class="tag sp">SP</span>
+    <div class="item-body">
+      <p>Promote the SP draft above into the <strong>Synthesized Position</strong> section of <code>[Theme File/Location]</code>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-meta" data-title="Cross-cutting Meta">
+  <h2>2. Cross-cutting reminders <span class="count"></span></h2>
+  <p class="sec-desc">Cleanup, caveats, and priority ordering.</p>
+
+  <!-- META Item -->
+  <div class="item" data-id="meta-cleanup">
+    <input type="checkbox">
+    <span class="tag meta">META</span>
+    <div class="item-body">
+      <p><strong>Cleanup task.</strong> Remove this paper from the "To integrate once read" list or update relevant bibliographies.</p>
+    </div>
+  </div>
+
+  <!-- Skipped List Example -->
+  <div class="item" data-id="meta-skips">
+    <input type="checkbox">
+    <span class="tag meta">META</span>
+    <div class="item-body">
+      <p><strong>Deliberate skips — not oversights.</strong></p>
+      <ul class="skipped-list">
+        <li><code>[Theme/Section]</code>: Reason why this part of the paper was not relevant or is being explicitly ignored.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Priority List Example -->
+  <h3 style="margin:22px 0 4px; font-size:14.5px;">Priority integration order</h3>
+  <ol class="priority">
+    <li><strong>[Theme 1]</strong> <span class="note">— Reason for priority (e.g., heaviest load).</span></li>
+    <li><strong>[Theme 2]</strong> <span class="note">— Reason for secondary priority.</span></li>
+  </ol>
+</section>
+
+</main>
+
+<script>
+(function() {
+  // Update this key for each new checklist to keep localStorage separate
+  const STORAGE_KEY = '[citekey]-checklist-v1';
+
+  const sections = Array.from(document.querySelectorAll('section[id^="sec-"]'));
+  const allBoxes = Array.from(document.querySelectorAll('.item input[type=checkbox]'));
+  const progressFill = document.getElementById('progressFill');
+  const progressLabel = document.getElementById('progressLabel');
+  const sectionCounts = document.getElementById('sectionCounts');
+  const resetBtn = document.getElementById('resetBtn');
+
+  sections.forEach(sec => {
+    const label = document.createElement('span');
+    label.dataset.sec = sec.id;
+    sectionCounts.appendChild(label);
+  });
+
+  function loadState() {
+    let state = {};
+    try {
+      state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    } catch (e) { state = {}; }
+    allBoxes.forEach(box => {
+      const id = box.closest('.item').dataset.id;
+      if (state[id]) {
+        box.checked = true;
+        box.closest('.item').classList.add('checked');
+      }
+    });
+  }
+
+  function saveState() {
+    const state = {};
+    allBoxes.forEach(box => {
+      const id = box.closest('.item').dataset.id;
+      if (box.checked) state[id] = true;
+    });
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {}
+  }
+
+  function updateProgress() {
+    const total = allBoxes.length;
+    const done = allBoxes.filter(b => b.checked).length;
+    const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+    progressFill.style.width = pct + '%';
+    progressLabel.textContent = done + ' / ' + total + ' completed (' + pct + '%)';
+
+    sections.forEach(sec => {
+      const boxes = Array.from(sec.querySelectorAll('.item input[type=checkbox]'));
+      const secDone = boxes.filter(b => b.checked).length;
+      const secTotal = boxes.length;
+      const countEl = sec.querySelector('h2 .count');
+      if (countEl) countEl.textContent = secDone + ' / ' + secTotal;
+      const label = sectionCounts.querySelector('[data-sec="' + sec.id + '"]');
+      if (label) {
+        label.textContent = sec.dataset.title + ': ' + secDone + '/' + secTotal;
+      }
+    });
+  }
+
+  allBoxes.forEach(box => {
+    box.addEventListener('change', () => {
+      box.closest('.item').classList.toggle('checked', box.checked);
+      saveState();
+      updateProgress();
+    });
+  });
+
+  resetBtn.addEventListener('click', () => {
+    if (!confirm('Clear all checkboxes for this paper?')) return;
+    allBoxes.forEach(box => {
+      box.checked = false;
+      box.closest('.item').classList.remove('checked');
+    });
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    updateProgress();
+  });
+
+  loadState();
+  updateProgress();
+})();
+</script>
+
+</body>
+</html>
