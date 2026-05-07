@@ -22,10 +22,14 @@ For the literature review workflow to function correctly, you need to configure 
 **Obsidian & MCP (AI) Setup:**
 1. Open this repository folder as a Vault in Obsidian.
 2. When Obsidian prompts you, **Trust the authors and enable community plugins** (Safe Mode: OFF). 
-3. This vault comes pre-configured with the **Zotero Integration** plugin. Make sure Zotero is open in the background so the plugin can connect to it.
-4. This vault also comes pre-configured with the **Local REST API** plugin. This is required for AI agents (via the Model Context Protocol, MCP) to read your vault files.
-   - Go to Obsidian Settings > **Local REST API**.
-   - Copy your API Key and Port.
+3. Install the **Zotero Integration** plugin:
+   - Go to Obsidian Settings > Community plugins > Browse.
+   - Search for "Zotero Integration" and click Install, then Enable.
+   - Configure the plugin settings to point to your Zotero desktop app.
+4. Install the **Local REST API** plugin (required for MCP):
+   - Go to Obsidian Settings > Community plugins > Browse.
+   - Search for "Local REST API" and click Install, then Enable.
+   - Go to the plugin's settings to find your API Key and Port.
    - Configure your MCP server (e.g., in Claude Desktop's `claude_desktop_config.json` or your specific AI environment) to connect to Obsidian using these credentials.
 
 ### 2. AI Initialization & Personalization

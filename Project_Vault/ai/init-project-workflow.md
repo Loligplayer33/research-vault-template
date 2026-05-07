@@ -32,7 +32,7 @@ Ask the user:
 2. Is the **Zotero Integration** community plugin enabled and connected in your Obsidian vault?
 3. Have you configured your **MCP connection** (via the **Local REST API** Obsidian plugin) so that your AI agent can successfully fetch vault contents?
 
-*(If they say no to any, briefly explain what they need to do. They can find the Local REST API configuration in Obsidian settings to hook up to their MCP server. Reference the root `README.md` for full instructions.)*
+*(If they say no to any, briefly explain what they need to do. They must manually install "Zotero Integration" and "Local REST API" from the Obsidian Community Plugins browser. Then they can find the Local REST API configuration in Obsidian settings to hook up to their MCP server. Reference the root `README.md` for full instructions.)*
 
 *Wait for response to confirm they are ready.*
 
