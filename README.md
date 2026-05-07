@@ -19,10 +19,14 @@ For the literature review workflow to function correctly, you need to configure 
    - Select the `.xpi` file you downloaded and restart Zotero.
 3. Configure Better BibTeX to keep your citekeys stable (the default settings are usually fine).
 
-**Obsidian Setup:**
+**Obsidian & MCP (AI) Setup:**
 1. Open this repository folder as a Vault in Obsidian.
 2. When Obsidian prompts you, **Trust the authors and enable community plugins** (Safe Mode: OFF). 
 3. This vault comes pre-configured with the **Zotero Integration** plugin. Make sure Zotero is open in the background so the plugin can connect to it.
+4. This vault also comes pre-configured with the **Local REST API** plugin. This is required for AI agents (via the Model Context Protocol, MCP) to read your vault files.
+   - Go to Obsidian Settings > **Local REST API**.
+   - Copy your API Key and Port.
+   - Configure your MCP server (e.g., in Claude Desktop's `claude_desktop_config.json` or your specific AI environment) to connect to Obsidian using these credentials.
 
 ### 2. AI Initialization & Personalization
 

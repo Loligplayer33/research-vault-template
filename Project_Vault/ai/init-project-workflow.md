@@ -30,8 +30,9 @@ This is a highly interactive, conversational process. You must work step-by-step
 Ask the user:
 1. Have you already installed the **Better BibTeX** extension in Zotero?
 2. Is the **Zotero Integration** community plugin enabled and connected in your Obsidian vault?
+3. Have you configured your **MCP connection** (via the **Local REST API** Obsidian plugin) so that your AI agent can successfully fetch vault contents?
 
-*(If they say no, briefly explain that they need to install Better BibTeX from its GitHub releases into Zotero, and ensure Obsidian Safe Mode is off so the pre-packaged Zotero Integration plugin can run. You can reference the root `README.md` for full instructions.)*
+*(If they say no to any, briefly explain what they need to do. They can find the Local REST API configuration in Obsidian settings to hook up to their MCP server. Reference the root `README.md` for full instructions.)*
 
 *Wait for response to confirm they are ready.*
 
