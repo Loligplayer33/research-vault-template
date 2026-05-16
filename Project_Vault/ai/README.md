@@ -47,8 +47,8 @@ Reading guides are inline, ephemeral scaffolding unless the user explicitly asks
 
 ## Current Cross-Vault Anchors
 
-- [[THESIS_CONTEXT]]
-- [[Thesis Overview]]
+- [[PROJECT_CONTEXT]]
+- [[Project Overview]]
 - [[Literature Review/README]]
 - [[Literature Review/Overview Synthesis and Reading Map]]
 - [[Literature Review/Synthesis/README|Synthesis]]

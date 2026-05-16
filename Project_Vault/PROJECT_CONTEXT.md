@@ -70,7 +70,7 @@ The detailed literature framing for this project should be treated as **provisio
 
 For current reading orientation and source priorities, consult:
 
-- [[Thesis Overview]]
+- [[Project Overview]]
 - [[Literature Review/Overview Synthesis and Reading Map]]
 - [[Literature Review/README]]
 
@@ -78,7 +78,7 @@ Do not assume that one current source list, one paper, or one early synthesis th
 
 ## Important Links
 
-- [[Thesis Overview]] — Where the project stands currently
+- [[Project Overview]] — Where the project stands currently
 - [[Literature Review/README|Literature Review Workflow]]
 - [[AGENTS|Agent Rules]]
 - [[ai/README|AI Scripts & Tools]]

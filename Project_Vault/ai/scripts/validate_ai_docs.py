@@ -14,7 +14,7 @@ VAULT_ROOT = WORKSPACE_ROOT / "Project_Vault"
 REQUIRED_FILES = [
     VAULT_ROOT / "AGENTS.md",
     VAULT_ROOT / "CLAUDE.md",
-    VAULT_ROOT / "THESIS_CONTEXT.md",
+    VAULT_ROOT / "PROJECT_CONTEXT.md",
     VAULT_ROOT / "ai" / "README.md",
     VAULT_ROOT / "ai" / "init-project-workflow.md",
     VAULT_ROOT / "ai" / "zotero-import-template-guide.md",
@@ -28,7 +28,7 @@ REQUIRED_FILES = [
 # CLAUDE.md files are symlinks to AGENTS.md — only check AGENTS.md to avoid duplicate wikilink errors
 CHECK_LINK_FILES = [
     VAULT_ROOT / "AGENTS.md",
-    VAULT_ROOT / "THESIS_CONTEXT.md",
+    VAULT_ROOT / "PROJECT_CONTEXT.md",
     VAULT_ROOT / "ai" / "README.md",
     VAULT_ROOT / "ai" / "init-project-workflow.md",
     VAULT_ROOT / "ai" / "paper-reading-guide-workflow.md",
@@ -45,6 +45,8 @@ EXPECTED_SYMLINKS = {
 
 FORBIDDEN_SUBSTRINGS = [
     "literature_review_workflow",
+    "THESIS_CONTEXT",
+    "Thesis Overview",
     "TfT_Notes_Vault",
     "/mnt/user-data",
     "present_files",

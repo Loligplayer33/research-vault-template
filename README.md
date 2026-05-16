@@ -12,7 +12,7 @@ Open an AI agent with local file access to this repository, such as Cursor at th
 
 > "Please run the `Project_Vault/ai/init-project-workflow.md` workflow to help me set up this vault."
 
-For first-time setup, local file access is highly recommended. Before MCP is installed, an MCP-only agent can explain the vault and guide manual installation, but it may not be able to edit files, create or update setup state, rename notes, create synthesis notes, personalize context files, delete setup state, or run validation. Use an MCP-only agent for orientation if needed; use Cursor, Claude Code/Cowork, Codex, or another local-file-access coding agent for the full setup.
+For first-time setup, local file access is highly recommended. Before MCP is installed, an MCP-only agent can explain the vault and guide manual installation, but it may not be able to edit files, create or update setup state, rename notes, create synthesis notes, personalize context files, delete setup state, or run validation. Use an MCP-only agent for orientation if needed; use Cursor, Claude Code/Cowork, or another local-file-access coding agent for the full setup.
 
 The agent-facing workflow will walk you through:
 
@@ -23,7 +23,7 @@ The agent-facing workflow will walk you through:
 - Defining your project title, deliverables, and core problem.
 - Establishing your literature review guiding question and synthesis themes.
 - Seeding your glossary.
-- Updating the foundational context files (`AGENTS.md`, `THESIS_CONTEXT.md`, `Thesis Overview.md`, and workflow docs) for your project.
+- Updating the foundational context files (`AGENTS.md`, `PROJECT_CONTEXT.md`, `Project Overview.md`, and workflow docs) for your project.
 
 The Obsidian vault itself is the `Project_Vault/` folder inside this repository. Open the repository root in your editor, but open `Project_Vault/` as the vault in Obsidian.
 
@@ -35,35 +35,34 @@ The init workflow above should guide you through these steps interactively. Use 
 
 1. Download and install [Zotero](https://www.zotero.org/).
 2. Install the **Better BibTeX** extension for Zotero:
-  - Download the latest `.xpi` file from the [Better BibTeX GitHub Releases](https://github.com/retorquere/zotero-better-bibtex/releases).
-  - If downloading with Firefox, right-click and save the `.xpi` instead of opening it in the browser.
-  - In Zotero, go to `Tools` > `Plugins` (or `Tools` > `Add-ons` on older Zotero versions).
-  - Click the gear icon in the top right and select `Install Plugin From File...` / `Install Add-on From File...`.
-  - Select the `.xpi` file you downloaded and restart Zotero.
+   - Download the latest `.xpi` file from the [Better BibTeX GitHub Releases](https://github.com/retorquere/zotero-better-bibtex/releases).
+   - If downloading with Firefox, right-click and save the `.xpi` instead of opening it in the browser.
+   - In Zotero, go to `Tools` > `Plugins` (or `Tools` > `Add-ons` on older Zotero versions).
+   - Click the gear icon in the top right and select `Install Plugin From File...` / `Install Add-on From File...`.
+   - Select the `.xpi` file you downloaded and restart Zotero.
 3. Configure Better BibTeX to keep your citekeys stable. The default settings are usually fine, but choose any custom citekey pattern before importing papers into Obsidian.
 
 ### Obsidian And MCP Setup
 
 1. Open `Project_Vault/` as a vault in Obsidian.
-2. When Obsidian prompts you, **Trust the authors and enable community plugins** (Safe Mode: OFF).
+2. When Obsidian prompts you, **Trust the authors and enable community plugins** (Safe Mode: OFF). 
 3. Install the **Zotero Integration** plugin:
-  - Go to Obsidian Settings > Community plugins > Browse.
-  - Search for "Zotero Integration" and click Install, then Enable.
-  - Configure the plugin settings to point to your Zotero desktop app.
+   - Go to Obsidian Settings > Community plugins > Browse.
+   - Search for "Zotero Integration" and click Install, then Enable.
+   - Configure the plugin settings to point to your Zotero desktop app.
 4. Install the **Local REST API** plugin (required for MCP):
-  - Go to Obsidian Settings > Community plugins > Browse.
-  - Search for "Local REST API" and click Install, then Enable.
-  - Go to the plugin's settings to find your API key and port. The secure default port is commonly `27124`; some MCP servers use the insecure local port `27123` only if you explicitly enable it.
-  - Install `uv`/`uvx` if your Obsidian MCP server is launched with `uvx`: `brew install uv` or `curl -LsSf https://astral.sh/uv/install.sh | sh`, then verify with `uvx --version`.
-  - Configure your MCP server (e.g., in Claude Desktop's `claude_desktop_config.json` or your specific AI environment) to connect to Obsidian using these credentials. Many Python-based MCP configs use `command: "uvx"` plus the server package name in `args`.
-  - Treat the Local REST API key and generated TLS material as machine-local secrets. Do not share them or commit a personalized `data.json`.
+   - Go to Obsidian Settings > Community plugins > Browse.
+   - Search for "Local REST API" and click Install, then Enable.
+   - Go to the plugin's settings to find your API key and port. The secure default port is commonly `27124`; some MCP servers use the insecure local port `27123` only if you explicitly enable it.
+   - Install `uv`/`uvx` if your Obsidian MCP server is launched with `uvx`: `brew install uv` or `curl -LsSf https://astral.sh/uv/install.sh | sh`, then verify with `uvx --version`.
+   - Configure your MCP server (e.g., in Claude Desktop's `claude_desktop_config.json` or your specific AI environment) to connect to Obsidian using these credentials. Many Python-based MCP configs use `command: "uvx"` plus the server package name in `args`.
+   - Treat the Local REST API key and generated TLS material as machine-local secrets. Do not share them or commit a personalized `data.json`.
 
 ## Understanding The Workflows
 
 Once initialized, the vault offers several automated workflows to accelerate your reading and synthesis. 
 
 Check out the AI workflow guides located in `Project_Vault/ai/` for details on how to invoke them:
-
 - `ai/init-project-workflow.md`: Agent-facing setup and personalization runbook.
 - `ai/paper-reading-guide-workflow.md`: Generates a verdict-scaled pre-reading triage guide for a new PDF.
 - `ai/synthesis-integration-workflow.md`: Helps integrate completed Zotero notes into your cross-paper synthesis themes and writes checklist artifacts to `ai/outputs/`.

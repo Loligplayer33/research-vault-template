@@ -48,5 +48,5 @@ For AI-assisted integration after a paper is read and Zotero notes are complete,
 
 - [[Literature Review/README]] — full workflow guide
 - [[Literature Review/Overview Synthesis and Reading Map]] — reading plan and source map
-- [[Thesis Overview]] — project overview
+- [[Project Overview]] — project overview
 - [[Glossary]] — stable definitions

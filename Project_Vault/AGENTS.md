@@ -6,7 +6,7 @@ This file is the canonical source for agent rules in this vault. `CLAUDE.md` sym
 
 You MUST complete these steps before finishing any task that modifies shared documentation, workflow, folder paths, naming conventions, or config. Do not skip these. Do not mark the task as done until both steps pass.
 
-1. Update all affected shared docs: [[THESIS_CONTEXT]], notes in [[ai/README]], and relevant workflow notes in [[Literature Review/README]].
+1. Update all affected shared docs: [[PROJECT_CONTEXT]], notes in [[ai/README]], and relevant workflow notes in [[Literature Review/README]].
 2. Run `python3 ai/scripts/validate_ai_docs.py` and confirm it passes.
 
 ## Rules
@@ -23,11 +23,11 @@ You MUST complete these steps before finishing any task that modifies shared doc
 This vault is a research workspace template for academic research and literature review.
 
 [INSERT YOUR PROJECT CONTEXT HERE]
-(Describe your research topic, core concern, and deliverables here. For example: "This vault is the research workspace for a master's thesis about X, investigating Y...")
+(Describe your research topic, core concern, and deliverables here. For example: "This vault is the research workspace for a project about X, investigating Y...")
 
 > **Note for new projects:** If you are starting a new project in this vault, ask the agent to run the [[ai/init-project-workflow]] to interactively set up the project context and synthesis files.
 
-For the full project context, literature workflow details, and current reading orientation, read [[THESIS_CONTEXT]].
+For the full project context, literature workflow details, and current reading orientation, read [[PROJECT_CONTEXT]].
 
 For Zotero import setup and template conventions:
 

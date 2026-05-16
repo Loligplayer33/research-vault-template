@@ -28,14 +28,14 @@ Success means:
 - Zotero Integration can create both the main paper note and raw Zotero note with citekey-based paths.
 - If the user requested personalization, the vault context files reflect the user's project rather than generic placeholders, or the setup state clearly says file updates are pending until an agent with file access continues.
 - If the user requested literature setup, the literature review has an initial guiding question, synthesis themes, and reading map, or the setup state clearly says those file updates are pending until an agent with file access continues.
-- Future agents can start from `AGENTS.md`, `THESIS_CONTEXT.md`, `Thesis Overview.md`, `Literature Review/README.md`, and `ai/README.md` without re-interviewing the user.
+- Future agents can start from `AGENTS.md`, `PROJECT_CONTEXT.md`, `Project Overview.md`, `Literature Review/README.md`, and `ai/README.md` without re-interviewing the user.
 
 ## Execution Rules for the Agent
 
 1. **One step at a time:** Ask a set of related questions, wait for the user's response, execute the file changes for that phase, and then move to the next phase.
 2. **Persistent State Tracking:** Track setup state from the start, but adapt to the access available. If the agent has local file access or working MCP access, create `ai/INIT_STATE.md` as the durable checklist and update it after each phase. If the agent does not yet have file access because MCP is not configured, keep the same checklist in the chat and tell the user it will be written to `ai/INIT_STATE.md` as soon as file access is available. Delete the file only after the user confirms setup is complete.
 3. **Continuous Validation:** When the agent has local file access or working MCP file access, run `python3 ai/scripts/validate_ai_docs.py` after modifying structural files, workflow docs, paths, or naming conventions. Do not move to the next phase until the script passes. If the agent does not yet have file access, clearly mark validation as pending in the chat-backed checklist and run it as soon as file access becomes available.
-4. **Update Python Scripts if Renaming:** If the user chooses to rename foundational files like `THESIS_CONTEXT.md` or `Thesis Overview.md`, you MUST update the hardcoded paths in `ai/scripts/validate_ai_docs.py` to match the new names.
+4. **Update Python Scripts if Renaming:** If the user chooses to rename foundational files like `PROJECT_CONTEXT.md` or `Project Overview.md`, you MUST update the hardcoded paths in `ai/scripts/validate_ai_docs.py` to match the new names.
 5. **No Secret Capture:** Never ask the user to paste long-lived API keys into vault notes. It is okay to ask whether they configured a key, but secrets belong in their MCP client config or local plugin config, not shared documentation.
 6. **Manual-App Boundary:** Some installation steps happen in Zotero, Obsidian, or the user's MCP client and cannot be performed by the agent. Guide the user precisely, then ask them to confirm the result before continuing.
 7. **Template Hygiene:** Keep the template project-neutral. Do not introduce thesis-specific themes, source lists, author examples, supervisor details, private paths, or personal names.
@@ -128,8 +128,8 @@ Run this track if the user chose **Introduction only** or **Both**. Keep it conv
 
 - `Project_Vault/AGENTS.md` - canonical agent rules, project summary, and conventions.
 - `Project_Vault/CLAUDE.md` - symlink to `AGENTS.md`.
-- `Project_Vault/THESIS_CONTEXT.md` - project framing, deliverables, import logic, and workflow assumptions. It may be renamed during setup if the user wants project-neutral naming.
-- `Project_Vault/Thesis Overview.md` - one-page current-state map: what the project is, what is done, what is open, and what to do next.
+- `Project_Vault/PROJECT_CONTEXT.md` - project framing, deliverables, import logic, and workflow assumptions.
+- `Project_Vault/Project Overview.md` - one-page current-state map: what the project is, what is done, what is open, and what to do next.
 - `Project_Vault/Glossary.md` - stable definitions, acronyms, contested terms, and open conceptual questions.
 
 #### 3. The literature review folder
@@ -351,7 +351,7 @@ For Cursor or another MCP client, use the same command, args, and environment va
 Verification prompts for the user or agent:
 1. Can the MCP list the vault root files?
 2. Can it read `AGENTS.md`?
-3. Can it read `THESIS_CONTEXT.md`?
+3. Can it read `PROJECT_CONTEXT.md`?
 4. Can it read `Literature Review/README.md`?
 5. Can it read `ai/init-project-workflow.md`?
 
@@ -408,18 +408,18 @@ Troubleshooting:
 Ask the user:
 1. What is the working title of the project?
 2. What is the main research question or core problem you are investigating?
-3. What are the key deliverables? Examples: systematic literature review, taxonomy, framework, prototype, thesis manuscript, article draft, dataset, design artifact.
-4. What type of project is this? Examples: bachelor thesis, master thesis, seminar paper, dissertation chapter, independent research project, product research project.
+3. What are the key deliverables? Examples: systematic literature review, taxonomy, framework, prototype, long-form manuscript, article draft, dataset, design artifact.
+4. What type of project is this? Examples: academic research project, seminar paper, dissertation chapter, capstone project, independent research project, product research project.
 5. Do you want to rename the core contextual files? Defaults:
-   - keep `THESIS_CONTEXT.md`, or rename to `PROJECT_CONTEXT.md`
-   - keep `Thesis Overview.md`, or rename to `Project Overview.md`
+   - keep `PROJECT_CONTEXT.md`
+   - keep `Project Overview.md`
 6. Are there external locations the vault should know about, such as a separate codebase, writing repository, Overleaf project, data folder, or prototype folder?
 
 *Wait for response.*
 
 **Execution:**
 - If the agent does not have file access, do not claim personalization is complete. Record the user's answers in the chat-backed checklist, mark `File update status: pending until file access is available`, and tell the user to continue this phase with Cursor, Claude Code/Cowork, or another agent that can edit the repository.
-- If the agent has file access, inject the provided answers into the placeholder brackets inside `THESIS_CONTEXT.md` and `Thesis Overview.md`.
+- If the agent has file access, inject the provided answers into the placeholder brackets inside `PROJECT_CONTEXT.md` and `Project Overview.md`.
 - If the user requested file renames and the agent has file access, execute the renames, update all internal wikilinks in the vault that point to them, and update `ai/scripts/validate_ai_docs.py` to check for the new filenames.
 - If file access exists, update root `AGENTS.md` and `Project_Vault/AGENTS.md` only where the project-level summary or renamed paths require it.
 - If file access exists, run validation script. Update `ai/INIT_STATE.md` if it exists; otherwise update the chat-backed checklist.
@@ -530,7 +530,7 @@ Ask the user:
 ## Related Notes
 
 - [[AGENTS]]
-- [[THESIS_CONTEXT]]
+- [[PROJECT_CONTEXT]]
 - [[ai/README]]
 - [[ai/zotero-import-template-guide]]
 - [[ai/paper-reading-guide-workflow]]

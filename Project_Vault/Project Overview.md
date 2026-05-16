@@ -1,4 +1,4 @@
-# Thesis / Project Overview — Where You Stand
+# Project Overview — Where You Stand
 
 _A single-page map of your project, what's done, what's open, and how it all connects._
 
@@ -6,7 +6,7 @@ _A single-page map of your project, what's done, what's open, and how it all con
 
 ## Your Project in One Sentence
 
-[Insert a one-sentence summary of your research project, thesis, or paper here. e.g. "Find, organize, and demonstrate X grounded in Y..."]
+[Insert a one-sentence summary of your research project, paper, or deliverable here. e.g. "Find, organize, and demonstrate X grounded in Y..."]
 
 ---
 
@@ -22,4 +22,4 @@ _A single-page map of your project, what's done, what's open, and how it all con
 
 ## Connections & Outline
 
-[Sketch the rough outline of your final paper/thesis here, or describe the main moving parts of the project.]
+[Sketch the rough outline of your final paper, project, or deliverable here, or describe the main moving parts of the project.]

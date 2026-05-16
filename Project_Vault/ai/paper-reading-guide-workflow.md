@@ -36,8 +36,8 @@ If the MCP is unreachable or returns errors for required files, say so and stop.
 ### Always pull (vault-relative paths)
 
 1. `AGENTS.md` - agent rules and completion checklist.
-2. `THESIS_CONTEXT.md` - current project framing.
-3. `Thesis Overview.md` - current state map of the deliverables.
+2. `PROJECT_CONTEXT.md` - current project framing.
+3. `Project Overview.md` - current state map of the deliverables.
 4. `Literature Review/Overview Synthesis and Reading Map.md` - reading plan, source priorities, and current cross-source synthesis. Without this, the guide reroutes the user through ground already covered and "Why this matters" collapses into generic relevance claims.
 5. All synthesis notes in `Literature Review/Synthesis/`.
 6. `Glossary.md` - stable term definitions. Match the glossary's framing rather than improvising definitions.
@@ -76,7 +76,7 @@ The verdict is one of:
 - **Moderate** - meaningfully extends, qualifies, or replicates an existing claim in the synthesis without adding a new mechanism or framing. Earns a guide, but more sections are Skim/Skip and total length is shorter.
 - **Light** - on-topic but adds little the existing library does not already have at equal or better quality. Earns a compressed artifact, not a section-by-section walk. The compressed artifact is honest about why the paper does not earn more attention.
 
-Decide the verdict by holding the paper against the current state of the vault: `THESIS_CONTEXT.md`, `Thesis Overview.md`, the current synthesis notes, and the cross-source synthesis section of the reading map. Ask: against this existing structure, what does the paper actually add? If the answer is "another instance of a point already made by existing sources," the verdict tends Light. If the answer names a specific mechanism, boundary condition, or framing the synthesis does not yet capture, the verdict tends High. Use judgment grounded in vault content; do not apply a fixed checklist.
+Decide the verdict by holding the paper against the current state of the vault: `PROJECT_CONTEXT.md`, `Project Overview.md`, the current synthesis notes, and the cross-source synthesis section of the reading map. Ask: against this existing structure, what does the paper actually add? If the answer is "another instance of a point already made by existing sources," the verdict tends Light. If the answer names a specific mechanism, boundary condition, or framing the synthesis does not yet capture, the verdict tends High. Use judgment grounded in vault content; do not apply a fixed checklist.
 
 The verdict is not "is this paper exactly on the project topic." Papers can be High-relevance because they provide contrast cases, methods, adoption evidence, problem-mechanism evidence, boundary conditions, or counterweights. The check is about how much the paper adds against what the user already has.
 
@@ -194,13 +194,13 @@ A "Skip unless needed" tag is appropriate when:
 
 If starting from a fresh chat, summarize the workflow like this:
 
-> When the user asks for a reading guide on a paper PDF, fetch the vault context fresh via the Obsidian MCP; do not ask them to attach files unless the MCP is unavailable or a required read fails. Use `obsidian_batch_get_file_contents` for the always-pull set: `THESIS_CONTEXT.md`, `Thesis Overview.md`, `Literature Review/Overview Synthesis and Reading Map.md`, the synthesis notes in `Literature Review/Synthesis/`, and `Glossary.md`. Pull optional anchor notes if the paper clearly touches their territory. Read the PDF. Commit a relevance verdict (High / Moderate / Light) by holding the paper against the current synthesis state. If a must-read or top-priority paper is downgraded to Moderate or Light, flag-and-ask before producing the guide. Produce inline markdown: High verdict -> full five-part guide; Moderate -> compressed five-part guide; Light -> title + overview + verdict + "read this much, then stop." Do not archive. Offer to draft Zotero bullets and synthesis contributions as a follow-up.
+> When the user asks for a reading guide on a paper PDF, fetch the vault context fresh via the Obsidian MCP; do not ask them to attach files unless the MCP is unavailable or a required read fails. Use `obsidian_batch_get_file_contents` for the always-pull set: `PROJECT_CONTEXT.md`, `Project Overview.md`, `Literature Review/Overview Synthesis and Reading Map.md`, the synthesis notes in `Literature Review/Synthesis/`, and `Glossary.md`. Pull optional anchor notes if the paper clearly touches their territory. Read the PDF. Commit a relevance verdict (High / Moderate / Light) by holding the paper against the current synthesis state. If a must-read or top-priority paper is downgraded to Moderate or Light, flag-and-ask before producing the guide. Produce inline markdown: High verdict -> full five-part guide; Moderate -> compressed five-part guide; Light -> title + overview + verdict + "read this much, then stop." Do not archive. Offer to draft Zotero bullets and synthesis contributions as a follow-up.
 
 ## Related Notes
 
 - [[AGENTS]]
-- [[THESIS_CONTEXT]]
-- [[Thesis Overview]]
+- [[PROJECT_CONTEXT]]
+- [[Project Overview]]
 - [[Literature Review/README]]
 - [[Literature Review/Synthesis/README|Synthesis folder]]
 - [[Literature Review/Overview Synthesis and Reading Map]]
