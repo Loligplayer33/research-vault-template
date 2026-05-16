@@ -19,6 +19,12 @@
     --sp-bg: #efe9f6;
     --meta: #555;
     --meta-bg: #ececec;
+    --high: #2f7d4f;
+    --high-bg: #e8f3ec;
+    --moderate: #c47a2b;
+    --moderate-bg: #fbf0e1;
+    --light-v: #6b6b6b;
+    --light-v-bg: #ececec;
   }
 
   * { box-sizing: border-box; }
@@ -51,6 +57,52 @@
     padding: 1px 5px;
     border-radius: 3px;
     font-size: 12.5px;
+  }
+
+  .verdict {
+    margin: 0 0 18px;
+    border-left: 4px solid var(--high);
+    background: var(--high-bg);
+    padding: 16px 18px;
+    border-radius: 0 6px 6px 0;
+  }
+  .verdict.high {
+    border-color: var(--high);
+    background: var(--high-bg);
+  }
+  .verdict.moderate {
+    border-color: var(--moderate);
+    background: var(--moderate-bg);
+  }
+  .verdict.light {
+    border-color: var(--light-v);
+    background: var(--light-v-bg);
+  }
+  .verdict-label {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .verdict-tag {
+    background: var(--high);
+    border-radius: 4px;
+    color: #fff;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin-right: 8px;
+    padding: 2px 8px;
+    text-transform: uppercase;
+  }
+  .verdict.moderate .verdict-tag { background: var(--moderate); }
+  .verdict.light .verdict-tag { background: var(--light-v); }
+  .verdict-body {
+    color: var(--ink);
+    font-size: 14px;
   }
 
   .sticky-bar {
@@ -228,6 +280,24 @@
     font-size: 13px;
     color: var(--muted);
   }
+  .caveat {
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--meta);
+    border-radius: 0 6px 6px 0;
+    margin: 10px 0 12px 86px;
+    padding: 10px 12px;
+    font-size: 13.5px;
+    background: #fafafa;
+  }
+  .caveat-label {
+    display: block;
+    color: var(--muted);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
 </style>
 </head>
 <body>
@@ -250,6 +320,14 @@
 </div>
 
 <main>
+
+<div class="verdict high">
+  <div class="verdict-label">Relevance Verdict</div>
+  <div>
+    <span class="verdict-tag">[High/Moderate/Light]</span>
+    <span class="verdict-body">[Brief reasoning for why this paper is relevant and what its main contribution to the current synthesis is.]</span>
+  </div>
+</div>
 
 <section id="sec-theme1" data-title="Theme 1: [Name]">
   <h2>1. [Theme Name] <span class="count"></span></h2>
@@ -314,6 +392,12 @@
         <li><code>[Theme/Section]</code>: Reason why this part of the paper was not relevant or is being explicitly ignored.</li>
       </ul>
     </div>
+  </div>
+
+  <!-- Caveat Example -->
+  <div class="caveat">
+    <span class="caveat-label">[Caveat Type]</span>
+    [Methodological, conceptual, or scope caveat that constrains how this paper should be cited.]
   </div>
 
   <!-- Priority List Example -->

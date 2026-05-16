@@ -16,6 +16,7 @@ REQUIRED_FILES = [
     VAULT_ROOT / "CLAUDE.md",
     VAULT_ROOT / "THESIS_CONTEXT.md",
     VAULT_ROOT / "ai" / "README.md",
+    VAULT_ROOT / "ai" / "init-project-workflow.md",
     VAULT_ROOT / "ai" / "zotero-import-template-guide.md",
     VAULT_ROOT / "Literature Review" / "README.md",
     VAULT_ROOT / ".obsidian" / "plugins" / "obsidian-zotero-desktop-connector" / "data.json",
@@ -29,6 +30,9 @@ CHECK_LINK_FILES = [
     VAULT_ROOT / "AGENTS.md",
     VAULT_ROOT / "THESIS_CONTEXT.md",
     VAULT_ROOT / "ai" / "README.md",
+    VAULT_ROOT / "ai" / "init-project-workflow.md",
+    VAULT_ROOT / "ai" / "paper-reading-guide-workflow.md",
+    VAULT_ROOT / "ai" / "synthesis-integration-workflow.md",
     VAULT_ROOT / "ai" / "zotero-import-template-guide.md",
     VAULT_ROOT / "Literature Review" / "README.md",
 ]
@@ -41,6 +45,12 @@ EXPECTED_SYMLINKS = {
 
 FORBIDDEN_SUBSTRINGS = [
     "literature_review_workflow",
+    "TfT_Notes_Vault",
+    "/mnt/user-data",
+    "present_files",
+    "OneDrive-backed vault",
+    "BEGIN RSA PRIVATE KEY",
+    "593168a6d13090de9beb65dc3bdcca9ddc114bb288a69383f91ed8a7988fc6d5",
 ]
 
 WIKILINK_RE = re.compile(r"\[\[([^\]]+)\]\]")
@@ -122,6 +132,22 @@ def check_plugin_config(errors: list[str]) -> None:
         errors.append("Import overview paper should use imageBaseNameTemplate 'annotation'")
 
 
+def check_local_rest_config(errors: list[str]) -> None:
+    path = VAULT_ROOT / ".obsidian" / "plugins" / "obsidian-local-rest-api" / "data.json"
+    if not path.exists():
+        return
+    data = json.loads(path.read_text(encoding="utf-8"))
+    api_key = data.get("apiKey", "")
+    if api_key and api_key != "REPLACE_WITH_LOCAL_OBSIDIAN_REST_API_KEY":
+        errors.append("Local REST API data.json contains a non-placeholder apiKey")
+
+    crypto = data.get("crypto", {})
+    for key in ("cert", "privateKey", "publicKey"):
+        value = crypto.get(key, "")
+        if "PRIVATE KEY" in value or "BEGIN CERTIFICATE" in value or "BEGIN PUBLIC KEY" in value:
+            errors.append(f"Local REST API data.json contains generated TLS material in crypto.{key}")
+
+
 def main() -> int:
     errors: list[str] = []
     check_required_files(errors)
@@ -129,6 +155,7 @@ def main() -> int:
     check_wikilinks(errors)
     check_forbidden_strings(errors)
     check_plugin_config(errors)
+    check_local_rest_config(errors)
 
     if errors:
         print("AI documentation validation failed:\n")

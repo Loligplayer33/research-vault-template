@@ -37,6 +37,10 @@ For active literature-review work:
 
 - [[Literature Review/README]]
 
+For pre-reading paper triage:
+
+- [[ai/paper-reading-guide-workflow]]
+
 For paper synthesis integration (the "generate synthesis additions" workflow):
 
 - [[ai/synthesis-integration-workflow]]
@@ -47,5 +51,6 @@ For paper synthesis integration (the "generate synthesis additions" workflow):
 - Existing curated paper headers may be organized under `Literature Review/Papers/` by paper type.
 - Raw Zotero notes and their assets live in `Literature Review/zotero_notes/`.
 - Imported filenames MUST be citekey-based, not title-based.
+- Generated synthesis checklist artifacts live in `ai/outputs/` and should not use external artifact paths.
 
 See [[ai/zotero-import-template-guide]] for the full setup.

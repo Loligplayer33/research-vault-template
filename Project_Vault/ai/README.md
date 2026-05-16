@@ -19,6 +19,7 @@ Substantive argument text in [[Literature Review/Synthesis/README|Literature Rev
 If a change should survive across chat contexts, update or create a note here. This includes:
 
 - Zotero or Obsidian config changes
+- installation or MCP setup steps
 - import command changes
 - folder or path renames
 - naming convention changes
@@ -34,9 +35,15 @@ If you are adding a new reusable handoff note, add it to this folder and list it
 - [[ai/synthesis-integration-workflow]]
 - [[ai/paper-reading-guide-workflow]]
 
+Use [[ai/init-project-workflow]] as the canonical setup runbook for new projects. It covers local installation, Better BibTeX, Zotero Integration, Local REST API, MCP verification, Zotero import testing, and project personalization.
+
 The canonical reading-plan note is [[Literature Review/Overview Synthesis and Reading Map]]. Do not recreate duplicate reading-map notes at the vault root.
 
 New main paper headers import into `Literature Review/imports/`. Existing curated paper headers may be organized under `Literature Review/Papers/` by paper type. Raw imported Zotero notes and annotation assets stay in `Literature Review/zotero_notes/`.
+
+Generated synthesis checklist artifacts, when requested, should be written inside the vault at `ai/outputs/{citekey}-synthesis-checklist.html` rather than to external artifact paths. These HTML files are working artifacts for integration; keep them lightweight and regenerate them when the underlying synthesis state changes.
+
+Reading guides are inline, ephemeral scaffolding unless the user explicitly asks to save one. The durable record remains the Zotero note plus any later synthesis-note additions.
 
 ## Current Cross-Vault Anchors
 

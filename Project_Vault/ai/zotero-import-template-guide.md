@@ -51,7 +51,7 @@ Use this note in future AI chats when changing or extending the Zotero Integrati
 - Use `{{citekey}}` for imported filenames.
 - Do not use `{{title}}` for filenames in this vault.
 - Reason:
-  - title-based filenames became too long for the OneDrive-backed vault and caused timeouts and broken reads.
+  - title-based filenames can become too long in synced folders and cause timeouts, broken reads, or brittle links.
 - Keep the full paper title inside the note body, not in the path.
 
 ## Structure Rules
@@ -159,7 +159,7 @@ The plugin creates the shell and imports the raw material. The analytical sectio
 
 If starting from a fresh chat, summarize the setup like this:
 
-> This vault uses Zotero Integration with one universal raw-import command (`Import Zotero notes`) and paper-type-specific main-note commands such as `Import overview paper`. Imported filenames must stay citekey-based because title-based filenames broke in the OneDrive vault. New main notes import into `Literature Review/imports/`; existing curated headers may be organized under `Literature Review/Papers/` by paper type. Raw Zotero notes and their assets live in `Literature Review/zotero_notes`, and main-note imports share that asset path to avoid stray image files at the vault root.
+> This vault uses Zotero Integration with one universal raw-import command (`Import Zotero notes`) and paper-type-specific main-note commands such as `Import overview paper`. Imported filenames must stay citekey-based because title-based filenames can become too long and brittle in synced folders. New main notes import into `Literature Review/imports/`; existing curated headers may be organized under `Literature Review/Papers/` by paper type. Raw Zotero notes and their assets live in `Literature Review/zotero_notes`, and main-note imports share that asset path to avoid stray image files at the vault root.
 
 ## Related Notes
 

@@ -42,6 +42,8 @@ After finishing each paper:
 
 Keep bullets short (1–2 sentences). Use plain citekeys `(smith2024)` in prose. H3 wikilinks handle backlink coverage.
 
+For AI-assisted integration after a paper is read and Zotero notes are complete, use [[ai/synthesis-integration-workflow]]. That workflow creates a verdict-scaled checklist in `ai/outputs/` and preserves the synthesis notes as user-owned argument space.
+
 ## Related
 
 - [[Literature Review/README]] — full workflow guide
