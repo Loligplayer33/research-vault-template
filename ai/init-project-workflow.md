@@ -50,10 +50,7 @@ Success means:
 **Goal:** Decide the conversation path first, then make sure the user and agent are operating in the correct folder and understand what will be edited.
 
 Ask the user:
-1. What do you want from this run?
-   - **Introduction only** - explain the vault structure, folder purposes, and workflows; do not install or personalize yet.
-   - **Full installation and personalization** - walk through setup, verification, and project-specific initialization.
-   - **Both** - first explain the vault and workflows, then continue into installation and personalization.
+1. Do you want an explanation of how this vault works before we begin setup?
 2. Are we setting up a fresh copy of this template, or updating an already initialized project?
 3. Are you opening this repository directory as your Obsidian vault?
 
@@ -63,9 +60,8 @@ Explain:
 - Strong recommendation: for first-time setup, use an agent with local file access to this repository, for example Cursor opened at the repository root or Claude Code/Cowork opened with this repository as its working folder. Before MCP exists, an MCP-only agent may not be able to create `ai/INIT_STATE.md`, edit vault files, rename notes, create synthesis notes, update workflow docs, delete setup state, or run validation. It can still give an introduction and installation guidance, but full setup is smoother and safer with local file access.
 
 Branching rule:
-- If the user chooses **Introduction only**, run the Vault Introduction Track below, answer follow-up questions, and stop before Phase 1 unless the user explicitly asks to continue.
-- If the user chooses **Full installation and personalization**, skip the introduction track unless the user asks for context, and continue to Phase 1.
-- If the user chooses **Both**, run the Vault Introduction Track, then continue to Phase 1.
+- If the user wants an explanation, run the Vault Introduction Track below **step by step**, then continue to Phase 1.
+- If the user does not want an explanation, skip to Phase 1.
 
 **Execution:**
 - Start state tracking with the checklist below.
@@ -108,7 +104,7 @@ Branching rule:
 
 **Goal:** Give the user a practical mental model of the vault before setup or research work begins.
 
-Run this track if the user chose **Introduction only** or **Both**. Keep it conversational. Do not turn this into a long lecture; give the overview, then ask where they want more detail.
+Run this track if the user wanted an explanation. **Crucial Rule:** Do NOT dump all these points into a single message. Explain **one section at a time**, ask if it makes sense or if they have questions, wait for their reply, and then move to the next section.
 
 ### What to explain
 
@@ -182,11 +178,8 @@ Explain that the full setup process will:
 ### How to close the introduction
 
 Ask:
-
-1. Which part should I explain in more detail: folders, Zotero imports, reading guides, synthesis integration, or agent context?
-2. Do you want to continue into installation and personalization now?
-
-If the user says no, update `ai/INIT_STATE.md` if it exists; otherwise update the chat-backed checklist with `Vault introduction track: complete` and stop.
+1. Does this all make sense?
+2. Shall we move on to Phase 1 (Local App Installation)?
 
 ---
 
