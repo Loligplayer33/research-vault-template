@@ -10,7 +10,7 @@ To turn this generic template into your own project workspace, start with the bu
 
 Open an AI agent with local file access to this repository, such as Cursor at the repository root or Claude Code/Cowork opened in this folder, and prompt it with:
 
-> "Please run the `Project_Vault/ai/init-project-workflow.md` workflow to help me set up this vault."
+> "Please run the `ai/init-project-workflow.md` workflow to help me set up this vault."
 
 For first-time setup, local file access is highly recommended. Before MCP is installed, an MCP-only agent can explain the vault and guide manual installation, but it may not be able to edit files, create or update setup state, rename notes, create synthesis notes, personalize context files, delete setup state, or run validation. Use an MCP-only agent for orientation if needed; use Cursor, Claude Code/Cowork, or another local-file-access coding agent for the full setup.
 
@@ -22,10 +22,9 @@ The agent-facing workflow will walk you through:
 - Testing the Zotero import commands before relying on them.
 - Defining your project title, deliverables, and core problem.
 - Establishing your literature review guiding question and synthesis themes.
-- Seeding your glossary.
 - Updating the foundational context files (`AGENTS.md`, `PROJECT_CONTEXT.md`, `Project Overview.md`, and workflow docs) for your project.
 
-The Obsidian vault itself is the `Project_Vault/` folder inside this repository. Open the repository root in your editor, but open `Project_Vault/` as the vault in Obsidian.
+**To open the vault:** Simply open this repository root directory as a vault in Obsidian.
 
 ## Technical Installation Reference
 
@@ -44,12 +43,21 @@ The init workflow above should guide you through these steps interactively. Use 
 
 ### Obsidian And MCP Setup
 
-1. Open `Project_Vault/` as a vault in Obsidian.
+1. Open this repository directory as a vault in Obsidian.
 2. When Obsidian prompts you, **Trust the authors and enable community plugins** (Safe Mode: OFF). 
 3. Install the **Zotero Integration** plugin:
    - Go to Obsidian Settings > Community plugins > Browse.
    - Search for "Zotero Integration" and click Install, then Enable.
-   - Configure the plugin settings to point to your Zotero desktop app.
+   - Open Settings > Zotero Integration.
+   - Look under **Import Formats**. If "Import overview paper" and "Import Zotero notes" are already configured, skip to the next step. Otherwise, add them manually exactly like this:
+
+| Field | Import overview paper | Import Zotero notes |
+|-------|-----------------------|---------------------|
+| Name | `Import overview paper` | `Import Zotero notes` |
+| Output Path | `Literature Review/imports/{{citekey}}.md` | `Literature Review/zotero_notes/{{citekey}}-zotero-notes.md` |
+| Image Output Path | `Literature Review/zotero_notes/{{citekey}}-zotero-notes-assets` | `Literature Review/zotero_notes/{{citekey}}-zotero-notes-assets` |
+| Image Base Name | `annotation` | `annotation` |
+| Template Path | `Literature Review/templates/overview-paper-template.md` | `Literature Review/templates/zotero-notes-template.md` |
 4. Install the **Local REST API** plugin (required for MCP):
    - Go to Obsidian Settings > Community plugins > Browse.
    - Search for "Local REST API" and click Install, then Enable.
@@ -62,7 +70,7 @@ The init workflow above should guide you through these steps interactively. Use 
 
 Once initialized, the vault offers several automated workflows to accelerate your reading and synthesis. 
 
-Check out the AI workflow guides located in `Project_Vault/ai/` for details on how to invoke them:
+Check out the AI workflow guides located in `ai/` for details on how to invoke them:
 - `ai/init-project-workflow.md`: Agent-facing setup and personalization runbook.
 - `ai/paper-reading-guide-workflow.md`: Generates a verdict-scaled pre-reading triage guide for a new PDF.
 - `ai/synthesis-integration-workflow.md`: Helps integrate completed Zotero notes into your cross-paper synthesis themes and writes checklist artifacts to `ai/outputs/`.

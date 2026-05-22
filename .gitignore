@@ -1,4 +1,8 @@
-Project_Vault/.obsidian/workspace.json
-Project_Vault/.obsidian/graph.json
-Project_Vault/.obsidian/themes
-Project_Vault/.obsidian/plugins/obsidian-local-rest-api/data.json
+.obsidian/workspace.json
+.obsidian/graph.json
+.obsidian/themes
+.obsidian/plugins/*/main.js
+.obsidian/plugins/*/manifest.json
+.obsidian/plugins/*/styles.css
+.obsidian/plugins/obsidian-zotero-desktop-connector/pdfannots2json-*
+.obsidian/plugins/obsidian-local-rest-api/data.json

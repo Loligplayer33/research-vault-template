@@ -1,14 +1,14 @@
 {
   "main": {
-    "id": "d9d3652859e67dd7",
+    "id": "64f5c4fb0c3b371a",
     "type": "split",
     "children": [
       {
-        "id": "30481e0934192803",
+        "id": "67e437da1beabfe4",
         "type": "tabs",
         "children": [
           {
-            "id": "7ab79f050bb35e45",
+            "id": "603c02a74cc1c882",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -23,20 +23,20 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "a48136caa4b1bac9",
+    "id": "31a92564861ea751",
     "type": "split",
     "children": [
       {
-        "id": "65a9df5183cbbc95",
+        "id": "685371d18212dbc5",
         "type": "tabs",
         "children": [
           {
-            "id": "8532c58ecd8151d3",
+            "id": "112d20c1942fee90",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical",
+                "sortOrder": "byModifiedTime",
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
@@ -44,7 +44,7 @@
             }
           },
           {
-            "id": "eea2d18a228a8d40",
+            "id": "b57ef32126af8eb5",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -61,7 +61,7 @@
             }
           },
           {
-            "id": "c6d7b84a46ec39a4",
+            "id": "6010baba829acdfc",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -74,22 +74,23 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 261.5
   },
   "right": {
-    "id": "69a81827a4d6d34a",
+    "id": "7501569fb210c75f",
     "type": "split",
     "children": [
       {
-        "id": "9b6c6cc8d8d39a6a",
+        "id": "2931e0d3413d47bf",
         "type": "tabs",
         "children": [
           {
-            "id": "cb0d7c443cbe5146",
+            "id": "f1d2ff3d97c4a032",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Literature Review/Synthesis/Design Strategies.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -99,24 +100,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Rückverweise"
+              "title": "Rückverweise auf Design Strategies"
             }
           },
           {
-            "id": "2598d68b71fa2362",
+            "id": "b7d1b439516e82b2",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Home.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Ausgehende Links"
+              "title": "Ausgehende Links von Home öffnen"
             }
           },
           {
-            "id": "5966002a24aaf419",
+            "id": "b4750135ebcd9c8c",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -131,7 +133,7 @@
             }
           },
           {
-            "id": "648d97f5931e65e2",
+            "id": "d5ec6ac626353f2c",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -145,17 +147,18 @@
             }
           },
           {
-            "id": "04d0d33aaf8a05b9",
+            "id": "cd4bafe38dcfaed8",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
+                "file": "Home.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Gliederung"
+              "title": "Gliederung von Home"
             }
           }
         ]
@@ -173,12 +176,56 @@
       "daily-notes:Heutige Notiz öffnen": false,
       "templates:Vorlage einfügen": false,
       "command-palette:Befehlspalette öffnen": false,
-      "bases:Neue Base erstellen": false
+      "bases:Neue Base erstellen": false,
+      "audio-recorder:Audioaufzeichnung starten/stoppen": false
     }
   },
-  "active": "8532c58ecd8151d3",
+  "active": "112d20c1942fee90",
   "lastOpenFiles": [
-    "Project_Vault/Project Overview.md",
-    "Project_Vault/PROJECT_CONTEXT.md"
+    "ai/README.md",
+    "Unbenannt.base",
+    "Literature Review/Synthesis/Design Strategies.md",
+    "Thesis Overview.md",
+    "Glossary.md",
+    "Literature Review/README.md",
+    "THESIS_CONTEXT.md",
+    "AGENTS.md",
+    "Literature Review/Overview Synthesis and Reading Map.md",
+    "Literature Review/Sources by Domain.md",
+    "Literature Review/Argumentation/The Problem - Argument-Level Synthesis.md",
+    "Literature Review/Bucket/The Metacognitive Framework and the User-AI Cognitive Entanglement Problem.md",
+    "Literature Review/zotero_notes/bastaniGenerativeAIGuardrails2025-zotero-notes.md",
+    "Literature Review/zotero_notes/leeImpactGenerativeAI2025-zotero-notes.md",
+    "ai/synthesis-integration-workflow.md",
+    "Literature Review/Synthesis/The Problem.md",
+    "Literature Review/Synthesis/Adoption and Friction.md",
+    "Literature Review/Synthesis/AI Framings.md",
+    "Literature Review/Papers/Overview Papers/tankelevitchMetacognitiveDemandsOpportunities2024.md",
+    "ai/paper-reading-guide-workflow.md",
+    "Literature Review/Papers/Design Papers/lehmannAIMeetsClassroom2025.md",
+    "Literature Review/Papers/Overview Papers/tankelevitchUnderstandingProtectingAugmenting2025.md",
+    "Literature Review/zotero_notes/tankelevitchMetacognitiveDemandsOpportunities2024-zotero-notes.md",
+    "Literature Review/zotero_notes/kazemitabaarExploringDesignSpace2024-zotero-notes.md",
+    "Literature Review/imports/kazemitabaarExploringDesignSpace2024.md",
+    "Literature Review/Synthesis/Outcomes.md",
+    "Literature Review/zotero_notes/kazemitabaarExploringDesignSpace2024-zotero-notes-assets/annotation-5-x38-y417.png",
+    "Literature Review/zotero_notes/kazemitabaarExploringDesignSpace2024-zotero-notes-assets",
+    "ai/templates/synthesis-checklist-template.html",
+    "ai/templates",
+    "Literature Review/zotero_notes/lehmannAIMeetsClassroom2025-zotero-notes-assets/annotation-19-x126-y625.png",
+    "Literature Review/zotero_notes/lehmannAIMeetsClassroom2025-zotero-notes-assets",
+    "Literature Review/Argumentation",
+    "Literature Review/Papers/Design Papers",
+    "Literature Review/zotero_notes/fanBewareMetacognitiveLaziness2025-zotero-notes-assets/annotation-8-x39-y418.png",
+    "Literature Review/zotero_notes/fanBewareMetacognitiveLaziness2025-zotero-notes-assets",
+    "Literature Review/Papers/Problem Papers",
+    "Literature Review/Papers/Overview Papers",
+    "Literature Review/zotero_notes/tankelevitchMetacognitiveDemandsOpportunities2024-zotero-notes-assets/annotation-4-x50-y444.png",
+    "assets/Pasted image 20260418172656.png",
+    "Literature Review/zotero_notes/tankelevitchMetacognitiveDemandsOpportunities2024-zotero-notes-assets/annotation-7-x42-y356.png",
+    "Literature Review/zotero_notes/tankelevitchMetacognitiveDemandsOpportunities2024-zotero-notes-assets/annotation-15-x49-y292.png",
+    "assets/Pasted image 20260404100215.png",
+    "assets/Pasted image 20260404100110.png",
+    "Pasted image 20260404095929.png"
   ]
 }
