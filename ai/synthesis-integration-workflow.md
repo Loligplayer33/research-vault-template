@@ -105,7 +105,7 @@ When drafting, mark explicitly as "first draft." Provide the draft as a purple `
 
 ## Output Format
 
-Create a standalone HTML file in the vault at `ai/outputs/{citekey}-synthesis-checklist.html`. From the repository root, this is `Project_Vault/ai/outputs/{citekey}-synthesis-checklist.html`. Create `ai/outputs/` if it does not exist. Do not use external artifact paths or presentation helpers; those are not part of this vault workflow.
+Create a standalone HTML file in the vault at `ai/outputs/{citekey}-synthesis-checklist.html`. From the repository root, this is `ai/outputs/{citekey}-synthesis-checklist.html`. Create `ai/outputs/` if it does not exist. Do not use external artifact paths or presentation helpers; those are not part of this vault workflow.
 
 The file must use the reference template for its base structure, styling, and functionality. Copy the HTML structure, CSS, JavaScript, callout patterns, and section structure from `ai/templates/synthesis-checklist-template.html`, then fill in the paper-specific content.
 

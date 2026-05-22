@@ -39,7 +39,7 @@ Success means:
 5. **No Secret Capture:** Never ask the user to paste long-lived API keys into vault notes. It is okay to ask whether they configured a key, but secrets belong in their MCP client config or local plugin config, not shared documentation.
 6. **Manual-App Boundary:** Some installation steps happen in Zotero, Obsidian, or the user's MCP client and cannot be performed by the agent. Guide the user precisely, then ask them to confirm the result before continuing.
 7. **Template Hygiene:** Keep the template project-neutral. Do not introduce thesis-specific themes, source lists, author examples, supervisor details, private paths, or personal names.
-8. **Path Convention:** Unless this workflow says otherwise, paths are vault-relative from `Project_Vault/`. Run validation from `Project_Vault/` with `python3 ai/scripts/validate_ai_docs.py`.
+8. **Path Convention:** Unless this workflow says otherwise, paths are vault-relative from the repository root. Run validation from the root with `python3 ai/scripts/validate_ai_docs.py`.
 9. **Adaptive Conversation:** At the beginning, ask whether the user wants a vault introduction, the full installation/personalization process, or both. Follow that choice. Do not force installation questions on a user who only asked for orientation.
 10. **File-Access Gate:** Any step that creates, edits, renames, deletes, validates, or inspects vault files requires local file access or working MCP file access. If neither exists, collect the user's answers, keep a chat-backed checklist, mark the file work as pending, and stop before claiming that phase is complete.
 
@@ -55,12 +55,10 @@ Ask the user:
    - **Full installation and personalization** - walk through setup, verification, and project-specific initialization.
    - **Both** - first explain the vault and workflows, then continue into installation and personalization.
 2. Are we setting up a fresh copy of this template, or updating an already initialized project?
-3. Do you want to keep the default vault folder name `Project_Vault/`?
-4. Are you opening the repository root in your editor, while opening `Project_Vault/` as the Obsidian vault?
+3. Are you opening this repository directory as your Obsidian vault?
 
 Explain:
-- The repository root contains `README.md`, root `AGENTS.md`, and root `CLAUDE.md`.
-- `Project_Vault/` is the Obsidian vault to open in Obsidian.
+- This repository root IS the Obsidian vault. Open this folder directly in Obsidian.
 - The agent may edit template/project files, but external app setup in Zotero, Obsidian, and the MCP client requires user confirmation.
 - Strong recommendation: for first-time setup, use an agent with local file access to this repository, for example Cursor opened at the repository root or Claude Code/Cowork opened with this repository as its working folder. Before MCP exists, an MCP-only agent may not be able to create `ai/INIT_STATE.md`, edit vault files, rename notes, create synthesis notes, update workflow docs, delete setup state, or run validation. It can still give an introduction and installation guidance, but full setup is smoother and safer with local file access.
 
@@ -83,11 +81,11 @@ Branching rule:
 - [ ] Phase 1: Local app installation
 - [ ] Phase 2: MCP setup and verification
 - [ ] Phase 3: Zotero import pipeline verification
+- [ ] Workspace orientation: pending / skipped / complete
 - [ ] Phase 4: Core project details
 - [ ] Phase 5: Literature review and synthesis setup
-- [ ] Phase 6: Glossary and theory initialization
-- [ ] Phase 7: Workflow calibration
-- [ ] Phase 8: Agent context finalization
+- [ ] Phase 6: Workflow calibration
+- [ ] Phase 7: Agent context finalization & Cleanup
 
 ## Setup Notes
 
@@ -100,7 +98,7 @@ Branching rule:
 - State file: active / pending until file access is available
 ```
 
-- If file access exists, run `python3 ai/scripts/validate_ai_docs.py` from `Project_Vault/` and fix any template health issue before continuing.
+- If file access exists, run `python3 ai/scripts/validate_ai_docs.py` and fix any template health issue before continuing.
 - If file access does not exist, mark `Validation status: pending until file access is available` and postpone validation until MCP or local file access is available.
 - Update `ai/INIT_STATE.md` if it exists; otherwise update the chat-backed checklist.
 
@@ -114,25 +112,17 @@ Run this track if the user chose **Introduction only** or **Both**. Keep it conv
 
 ### What to explain
 
-#### 1. The two-level structure
+#### 1. The vault structure
 
-- **Repository root** - contains the project wrapper files:
-  - `README.md` - human-facing start page.
-  - `AGENTS.md` - short root entry point that redirects agents into the vault.
-  - `CLAUDE.md` - symlink to `AGENTS.md` for agents that look for Claude-style instructions.
-- **`Project_Vault/`** - the actual Obsidian vault:
-  - Open this folder in Obsidian.
-  - Most notes, workflows, templates, and Obsidian plugin settings live here.
+- The repository root IS the Obsidian vault. Open this folder directly in Obsidian.
+- **The context files agents read first**:
+  - `AGENTS.md` - canonical agent rules, project summary, and conventions.
+  - `CLAUDE.md` - symlink to `AGENTS.md`.
+  - `PROJECT_CONTEXT.md` - project framing, deliverables, import logic, and workflow assumptions.
+  - `Project Overview.md` - one-page current-state map: what the project is, what is done, what is open, and what to do next.
+  - `Glossary.md` - stable definitions, acronyms, contested terms, and open conceptual questions. This file starts empty and grows organically during your research.
 
-#### 2. The context files agents read first
-
-- `Project_Vault/AGENTS.md` - canonical agent rules, project summary, and conventions.
-- `Project_Vault/CLAUDE.md` - symlink to `AGENTS.md`.
-- `Project_Vault/PROJECT_CONTEXT.md` - project framing, deliverables, import logic, and workflow assumptions.
-- `Project_Vault/Project Overview.md` - one-page current-state map: what the project is, what is done, what is open, and what to do next.
-- `Project_Vault/Glossary.md` - stable definitions, acronyms, contested terms, and open conceptual questions.
-
-#### 3. The literature review folder
+#### 2. The literature review folder
 
 - `Literature Review/README.md` - the main workflow guide for reading, importing, and synthesizing papers.
 - `Literature Review/Overview Synthesis and Reading Map.md` - the canonical reading plan, source priorities, current phases, and cross-source orientation.
@@ -141,11 +131,11 @@ Run this track if the user chose **Introduction only** or **Both**. Keep it conv
   - These notes are user-owned argument space. Agents should not rewrite substantive sections unless asked.
 - `Literature Review/imports/` - default landing zone for thin main paper notes imported from Zotero.
 - `Literature Review/zotero_notes/` - stable home for raw Zotero notes, PDF annotations, and annotation assets.
-- `Literature Review/Papers/` - optional curated location for organized paper headers after import.
+- `Literature Review/Papers/` - curated location for organized paper headers after import. Once you have processed an imported note, you can move it here.
 - `Literature Review/templates/` - Zotero Integration templates for main paper notes and raw Zotero notes.
 - `Literature Review/Sources by Domain.md` - source bank for papers discovered while reading but not yet fully processed.
 
-#### 4. The AI workflow folder
+#### 3. The AI workflow folder
 
 - `ai/README.md` - index of agent handoff notes and cross-vault anchors.
 - `ai/init-project-workflow.md` - this setup and onboarding workflow.
@@ -156,7 +146,7 @@ Run this track if the user chose **Introduction only** or **Both**. Keep it conv
 - `ai/outputs/` - generated checklist artifacts.
 - `ai/scripts/validate_ai_docs.py` - validator for required files, wikilinks, symlinks, plugin config paths, and template hygiene.
 
-#### 5. The core paper workflow
+#### 4. The core paper workflow
 
 Explain the normal loop:
 
@@ -168,7 +158,7 @@ Explain the normal loop:
 6. Open the relevant synthesis notes and add compressed cross-paper contributions.
 7. If requested, use `ai/synthesis-integration-workflow.md` to generate a checklist that guides the integration.
 
-#### 6. The two main AI-assisted research workflows
+#### 5. The two main AI-assisted research workflows
 
 - **Paper reading guide**:
   - Trigger: before reading, when the user has a PDF and wants help triaging it.
@@ -179,14 +169,14 @@ Explain the normal loop:
   - Output: HTML checklist in `ai/outputs/{citekey}-synthesis-checklist.html`.
   - It maps the paper into synthesis notes with PC/WT/SP/META items and records skipped notes deliberately.
 
-#### 7. What setup will personalize
+#### 6. What setup will personalize
 
 Explain that the full setup process will:
 
 - Verify Zotero, Better BibTeX, Obsidian, Local REST API, MCP, and Zotero imports.
 - Replace generic placeholders with the user's project title, deliverables, and research question.
 - Create or update synthesis themes.
-- Seed the reading map and glossary.
+- Seed the reading map.
 - Finalize agent context so future chats can start quickly.
 
 ### How to close the introduction
@@ -214,7 +204,7 @@ Ask the user to confirm:
 If Zotero is not installed, guide the user:
 1. Download Zotero from `https://www.zotero.org/`.
 2. Install and open Zotero.
-3. Add one test item, ideally with a PDF, so the import pipeline can be tested later.
+3. Add one test item. A Zotero "item" is any entry in the library (a paper, book, etc.). The easiest way is to drag a PDF paper into the Zotero window, or use the magic wand icon with a DOI. This is needed so the import pipeline can be tested later.
 
 ### 1B. Better BibTeX for Zotero
 
@@ -244,10 +234,10 @@ Recommended Better BibTeX checks:
 
 Guide the user:
 1. Install Obsidian from `https://obsidian.md/`.
-2. Open `Project_Vault/` as the vault.
+2. Open this repository directory as your Obsidian vault.
 3. When prompted, trust the vault author and allow community plugins.
 4. Open `Settings > Community plugins`.
-5. Turn Restricted Mode / Safe Mode off if needed.
+5. If you see a button that says "Turn on community plugins", click it. If you see "Restricted mode is on", turn it off.
 
 ### 1D. Zotero Integration Plugin
 
@@ -257,21 +247,20 @@ Explain why this is required:
 Guide the user:
 1. In Obsidian, open `Settings > Community plugins > Browse`.
 2. Search for `Zotero Integration`.
-3. Install and enable it.
+3. Click **Install**, then **Enable**.
 4. Keep Zotero open while using the plugin.
-5. Open the Zotero Integration settings and confirm the plugin's import formats include:
-   - `Import overview paper`
-   - `Import Zotero notes`
-6. Confirm those import formats point to the template files:
-   - `Literature Review/templates/overview-paper-template.md`
-   - `Literature Review/templates/zotero-notes-template.md`
-7. Confirm the output paths are citekey-based:
-   - `Literature Review/imports/{{citekey}}.md`
-   - `Literature Review/zotero_notes/{{citekey}}-zotero-notes.md`
-8. Confirm annotation assets use:
-   - `Literature Review/zotero_notes/{{citekey}}-zotero-notes-assets`
+5. Open `Settings > Zotero Integration`.
+6. Look under the **Import Formats** section. Check if "Import overview paper" and "Import Zotero notes" are already there.
+   - **If they are present:** Great, the template config loaded automatically. You can skip step 7.
+   - **If they are missing:** Add them manually using the exact values from this table:
 
-If import formats are missing, use `Project_Vault/.obsidian/plugins/obsidian-zotero-desktop-connector/data.json` as the reference configuration and reload Obsidian after correcting settings.
+| Field | Import overview paper | Import Zotero notes |
+|-------|-----------------------|---------------------|
+| Name | `Import overview paper` | `Import Zotero notes` |
+| Output Path | `Literature Review/imports/{{citekey}}.md` | `Literature Review/zotero_notes/{{citekey}}-zotero-notes.md` |
+| Image Output Path | `Literature Review/zotero_notes/{{citekey}}-zotero-notes-assets` | `Literature Review/zotero_notes/{{citekey}}-zotero-notes-assets` |
+| Image Base Name | `annotation` | `annotation` |
+| Template Path | `Literature Review/templates/overview-paper-template.md` | `Literature Review/templates/zotero-notes-template.md` |
 
 If the plugin UI or field names differ from this file, use the Zotero Integration Data Explorer on a test item to inspect available template variables before editing templates.
 
@@ -288,8 +277,7 @@ Guide the user:
 3. Install and enable it.
 4. Open `Settings > Local REST API`.
 5. Note the port. The secure HTTPS default is commonly `27124`; insecure HTTP is commonly `27123` if explicitly enabled.
-6. Copy the API key only into the user's MCP client configuration, not into vault notes.
-7. Leave `Project_Vault/.obsidian/plugins/obsidian-local-rest-api/data.json` template-safe unless this is a private initialized project that will not be shared.
+6. Copy the API key only into your MCP client configuration. **WARNING:** Do not paste your existing MCP config into the chat here, as it may contain API keys from other services. Do not save the API key into any vault notes.
 
 **Execution:**
 - Do not modify plugin secrets.
@@ -309,7 +297,7 @@ Ask which MCP client/environment the user uses:
 4. No MCP yet
 
 Explain the generic configuration requirements:
-- Obsidian must be open with `Project_Vault/` loaded.
+- Obsidian must be open.
 - The Local REST API plugin must be enabled.
 - For common Python-based Obsidian MCP servers, the user needs `uvx`, which is installed with `uv`.
   - macOS/Linux install option: `curl -LsSf https://astral.sh/uv/install.sh | sh`
@@ -386,7 +374,7 @@ Guide the user:
 7. If annotation images are exported, confirm they go under `Literature Review/zotero_notes/{citekey}-zotero-notes-assets`.
 8. Open the main note and confirm it links to the raw Zotero note.
 
-If test imports were only for setup verification, ask whether the user wants to delete the test notes before continuing.
+If test imports were only for setup verification, ask the user to delete the test notes (`Literature Review/imports/{citekey}.md` and `Literature Review/zotero_notes/{citekey}-zotero-notes.md`) in Obsidian by right-clicking and choosing Delete. Do not attempt to delete them via agent file commands.
 
 Troubleshooting:
 - If the command cannot find Zotero items, confirm Zotero is open and Better BibTeX is installed.
@@ -403,7 +391,7 @@ Troubleshooting:
 
 ## Phase 4: Discovery & Core Project Details
 
-**Agent Action:** Ask the user to define the core parameters of their research.
+**Agent Action:** Ask the user to define the core parameters of their research. (If your platform supports interactive UI forms but they fail, fall back to asking these questions via free-text).
 
 Ask the user:
 1. What is the working title of the project?
@@ -421,7 +409,7 @@ Ask the user:
 - If the agent does not have file access, do not claim personalization is complete. Record the user's answers in the chat-backed checklist, mark `File update status: pending until file access is available`, and tell the user to continue this phase with Cursor, Claude Code/Cowork, or another agent that can edit the repository.
 - If the agent has file access, inject the provided answers into the placeholder brackets inside `PROJECT_CONTEXT.md` and `Project Overview.md`.
 - If the user requested file renames and the agent has file access, execute the renames, update all internal wikilinks in the vault that point to them, and update `ai/scripts/validate_ai_docs.py` to check for the new filenames.
-- If file access exists, update root `AGENTS.md` and `Project_Vault/AGENTS.md` only where the project-level summary or renamed paths require it.
+- If file access exists, update `AGENTS.md` only where the project-level summary or renamed paths require it.
 - If file access exists, run validation script. Update `ai/INIT_STATE.md` if it exists; otherwise update the chat-backed checklist.
 
 ---
@@ -461,28 +449,7 @@ Ask the user:
 
 ---
 
-## Phase 6: Glossary & Theory Initialization
-
-**Agent Action:** Ask the user to seed the glossary.
-
-Ask the user:
-1. Are there foundational terms, theories, acronyms, datasets, methods, or constructs specific to this project?
-2. Are any terms contested or ambiguous in the literature?
-3. Are there definitions the agent should preserve exactly?
-4. Should open research questions live in `Glossary.md`, the reading map, or a separate note?
-
-*Wait for response.*
-
-**Execution:**
-- If the agent does not have file access, record the glossary terms and definitions in the chat-backed checklist and mark glossary file updates as pending.
-- If file access exists, populate `Glossary.md` with the user's definitions.
-- If the user provides a theory but not a definition, offer a draft academic definition for review and approval before writing it as settled.
-- If file access exists, include open questions where the user wants them.
-- Update `ai/INIT_STATE.md` if it exists; otherwise update the chat-backed checklist.
-
----
-
-## Phase 7: Workflow Calibration
+## Phase 6: Workflow Calibration
 
 **Goal:** Ensure the user understands how the working workflows should behave after initialization.
 
@@ -504,7 +471,7 @@ Ask the user:
 
 ---
 
-## Phase 8: Agent Context Finalization
+## Phase 7: Agent Context Finalization & Cleanup
 
 **Agent Action:** Finalize the AI instructions so future agent sessions understand the project natively.
 
@@ -525,6 +492,8 @@ Ask the user:
 - Tell the user initialization is complete, or clearly list any manual setup still pending.
 - Print the final checklist of what was accomplished.
 - Delete `ai/INIT_STATE.md` only if it exists and only after the user confirms no follow-up setup steps are needed.
+- **Cleanup:** Remove the `init-project-workflow` reference from `ai/README.md`.
+- Ask the user if they want to delete this `ai/init-project-workflow.md` file now that setup is complete.
 - Ask which paper, source list, or project task they want to tackle first.
 
 ## Related Notes

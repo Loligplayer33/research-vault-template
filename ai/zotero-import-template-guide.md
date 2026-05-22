@@ -16,17 +16,17 @@ Use this note in future AI chats when changing or extending the Zotero Integrati
 ## Current Working Setup
 
 - Plugin config file:
-  - `Project_Vault/.obsidian/plugins/obsidian-zotero-desktop-connector/data.json`
+  - `.obsidian/plugins/obsidian-zotero-desktop-connector/data.json`
 - Main note template:
-  - `Project_Vault/Literature Review/templates/overview-paper-template.md`
+  - `Literature Review/templates/overview-paper-template.md`
 - Raw Zotero import template:
-  - `Project_Vault/Literature Review/templates/zotero-notes-template.md`
+  - `Literature Review/templates/zotero-notes-template.md`
 - Main import folder:
-  - `Project_Vault/Literature Review/imports/`
+  - `Literature Review/imports/`
 - Organized paper folder:
-  - `Project_Vault/Literature Review/Papers/`
+  - `Literature Review/Papers/`
 - Stable raw Zotero folder:
-  - `Project_Vault/Literature Review/zotero_notes/`
+  - `Literature Review/zotero_notes/`
 
 ## Current Commands
 
@@ -127,10 +127,10 @@ The plugin creates the shell and imports the raw material. The analytical sectio
 ## Safe Procedure For Adding A New Paper-Type Import
 
 1. Inspect the current plugin config in:
-   - `Project_Vault/.obsidian/plugins/obsidian-zotero-desktop-connector/data.json`
+   - `.obsidian/plugins/obsidian-zotero-desktop-connector/data.json`
 2. Keep `Import Zotero notes` unchanged unless the user explicitly wants raw-import behavior changed.
 3. Create a new paper-type template in:
-   - `Project_Vault/Literature Review/templates/`
+   - `Literature Review/templates/`
 4. Add a new export format command with a paper-type-specific name.
    - examples:
      - `Import theory paper`
