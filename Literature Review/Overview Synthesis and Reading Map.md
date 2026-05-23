@@ -15,49 +15,33 @@ status: active
 
 This note is the canonical cross-paper orientation for the literature review. It consolidates the reading plan, source map, and the synthesis workflow the vault uses.
 
-## Guiding Question
+## What This Note Is For
 
-**How can automated graph construction and local graph-based retrieval be optimized for highly personalized, markdown-based knowledge environments to prevent semantic drift over time?**
-
-## Minimum Viable Reading Set
-
-These three papers are the **absolute must-reads** that form the technical spine of the approach. Future agents should treat them as top-priority sources when applying the verdict **flag-and-ask** rule (if a must-read is downgraded to Moderate or Light, ask before producing a reading guide).
-
-- [ ] **From Local to Global: A Graph RAG Approach to Query-Focused Summarization** (Microsoft Research / GraphRAG) — foundational GraphRAG paper
-- [ ] **PROM: Personal Knowledge Graph Construction with Large Language Models** — personal knowledge graph construction from messy, everyday user text
-- [ ] **PersonaAgent with GraphRAG: Community-Aware Knowledge Graphs for Personalized LLM** — user histories, preferences, and community-aware graph indexing
+- Give a high-quality first map of the field before deep reading.
+- Track reading priority and phases.
 
 ## Current Source Map and Reading Priority
 
-### Must-Read Core (technical spine)
+### Phase 1: Overview and Framing
+[List the papers that provide the broad framing for your project.]
+- [ ] `[Author, Year]` — `[Brief description of why you are reading this]`
 
-See **Minimum Viable Reading Set** above.
+### Phase 2: The Core Problem
+[List the papers that explore the problem space.]
+- [ ] `[Author, Year]` — `[Brief description of why you are reading this]`
 
-### Broader / Contextual
-
-- [ ] **Beyond Static Question Banks: Dynamic Knowledge Expansion via LLM-Automated Graph Construction** — hierarchical graph building and dynamic updates; architectural ideas on graph reasoning (contextual bucket, not core spine)
+### Phase 3: Solutions and Strategies
+[List the papers that propose solutions or strategies.]
+- [ ] `[Author, Year]` — `[Brief description of why you are reading this]`
 
 ## Central Themes to Track
 
-These correspond to synthesis notes in [[Literature Review/Synthesis/README]].
+[List the core themes you will track across your reading. These should correspond to the notes you create in the `Synthesis` folder.]
 
-### Special synthesis roles
-
-- [[Literature Review/Synthesis/The Problem]] — information overload and structural collapse issues
-- [[Literature Review/Synthesis/Design Strategies]] — concrete agent architectures
-- [[Literature Review/Synthesis/Open Questions]] — where graph-based retrieval systems still drop the ball on local execution
-
-### Cross-reading themes
-
-- [[Literature Review/Synthesis/Graph Extraction Accuracy]] — graph extraction accuracy from unstructured text
-- [[Literature Review/Synthesis/Semantic Drift Prevention]] — strategies for preventing semantic drift during continuous graph expansion
-- [[Literature Review/Synthesis/Context-Awareness and Personalization]] — context-awareness and user personalization mechanisms
-- [[Literature Review/Synthesis/Local Computational Overhead]] — computational overhead of running agent loops locally
-- [[Literature Review/Synthesis/Human-in-the-Loop Interaction Design]] — human-in-the-loop interaction design paradigms
+1. **[Theme 1]**
+2. **[Theme 2]**
+3. **[Theme 3]**
 
 ## Related
-
 - [[Literature Review/README]] — full workflow guide
 - [[Literature Review/Synthesis/README|Synthesis folder index]]
-- [[000_Semantic_Network_Context]]
-- [[001_Semantic_Network_Overview]]

@@ -35,7 +35,7 @@ This folder contains the working literature review for the project. The workflow
 ## Good Defaults
 
 - Keep raw highlights and in-situ reactions in Zotero.
-- Keep paper-level structure minimal in Obsidian; the Zotero note already holds the reading record.
+- Keep paper-level structure minimal in Obsidian — the Zotero note already does that work.
 - Treat `Literature Review/imports/` as the default landing zone for newly imported main paper notes. Existing curated paper headers may be organized under `Literature Review/Papers/` by paper type.
 - Treat substantive argument sections in `Literature Review/Synthesis/` as user-owned. During cleanup, only reading lists, tracking stubs, or other explicitly requested maintenance there should be changed.
 - Paper Contributions bullets in synthesis notes are 1–2 sentences max; compress further if they drift longer.
@@ -49,17 +49,19 @@ The canonical overview note for the current source map is [[Literature Review/Ov
 
 ## Reading Sequence
 
-The literature review should answer this guiding question:
+The literature review should answer your guiding question(s):
 
-**How can automated graph construction and local graph-based retrieval be optimized for highly personalized, markdown-based knowledge environments to prevent semantic drift over time?**
+**[Insert your main literature review guiding question here]**
 
 Reading happens in phases defined in [[Literature Review/Overview Synthesis and Reading Map]].
 
-### Synthesis notes for this project
+## What To Extract From Each Paper
 
-Special roles: [[Literature Review/Synthesis/The Problem]], [[Literature Review/Synthesis/Design Strategies]], [[Literature Review/Synthesis/Open Questions]].
+When reading, capture the core points across the Zotero note and the relevant synthesis notes:
 
-Cross-reading themes: [[Literature Review/Synthesis/Graph Extraction Accuracy]], [[Literature Review/Synthesis/Semantic Drift Prevention]], [[Literature Review/Synthesis/Context-Awareness and Personalization]], [[Literature Review/Synthesis/Local Computational Overhead]], [[Literature Review/Synthesis/Human-in-the-Loop Interaction Design]].
+1. [Extraction point 1]
+2. [Extraction point 2]
+3. [Extraction point 3]
 
 ## Reading-Guide and Synthesis-Integration Workflows
 

@@ -6,7 +6,7 @@ This file is the canonical source for agent rules in this vault. `CLAUDE.md` sym
 
 You MUST complete these steps before finishing any task that modifies shared documentation, workflow, folder paths, naming conventions, or config. Do not skip these. Do not mark the task as done until both steps pass.
 
-1. Update all affected shared docs: [[000_Semantic_Network_Context]], notes in [[ai/README]], and relevant workflow notes in [[Literature Review/README]].
+1. Update all affected shared docs: [[PROJECT_CONTEXT]], notes in [[ai/README]], and relevant workflow notes in [[Literature Review/README]].
 2. Run `python3 ai/scripts/validate_ai_docs.py` and confirm it passes.
 
 ## Rules
@@ -20,23 +20,18 @@ You MUST complete these steps before finishing any task that modifies shared doc
 
 ## Project Context
 
-This vault is the research workspace for a **seminar / independent research project** titled **"Project - Local AI Semantic Network Architectures."** It investigates **how local AI automation can assist in organizing large personal knowledge bases, like an Obsidian vault, specifically to reduce manual linking and tag clutter**.
+This vault is a research workspace template for academic research and literature review.
 
-**Deliverables:** systematic literature review (PKM frameworks and automated tagging methods), formal taxonomy for note types and relationships, basic prototype tool or local script to suggest backlinks, concise project manuscript.
+[INSERT YOUR PROJECT CONTEXT HERE]
+(Describe your research topic, core concern, and deliverables here. For example: "This vault is the research workspace for a project about X, investigating Y...")
 
-**Literature guiding question:** How can automated graph construction and local graph-based retrieval be optimized for highly personalized, markdown-based knowledge environments to prevent semantic drift over time?
+> **Note for new projects:** If you are starting a new project in this vault, ask the agent to run the [[ai/init-project-workflow]] to interactively set up the project context and synthesis files.
 
-**Synthesis notes:** The Problem, Design Strategies, Open Questions; Graph Extraction Accuracy, Semantic Drift Prevention, Context-Awareness and Personalization, Local Computational Overhead, Human-in-the-Loop Interaction Design. See [[Literature Review/Synthesis/README]] and [[Literature Review/Overview Synthesis and Reading Map]].
+## Repository Ownership
 
-**Minimum viable reading set:** GraphRAG (From Local to Global), PROM, PersonaAgent with GraphRAG — see reading map for full titles.
+New users should not track project work against the upstream template repository. At the start of setup, run `python3 ai/scripts/check_template_remote.py` and confirm the Git remote points to the user's own repository, not `Loligplayer33/research-vault-template`. Template developers may intentionally keep the upstream remote when working in developer/test mode.
 
-**Context files:** [[000_Semantic_Network_Context]], [[001_Semantic_Network_Overview]].
-
-**MCP:** Configured in Cursor; during template testing, local file access was used when MCP pointed at another vault.
-
-For the full project context, literature workflow details, and current reading orientation, read [[000_Semantic_Network_Context]].
-
-For the one-page current-state map, read [[001_Semantic_Network_Overview]].
+For the full project context, literature workflow details, and current reading orientation, read [[PROJECT_CONTEXT]].
 
 For Zotero import setup and template conventions:
 

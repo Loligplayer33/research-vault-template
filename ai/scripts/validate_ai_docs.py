@@ -15,8 +15,8 @@ VAULT_ROOT = WORKSPACE_ROOT
 REQUIRED_FILES = [
     VAULT_ROOT / "AGENTS.md",
     VAULT_ROOT / "CLAUDE.md",
-    VAULT_ROOT / "000_Semantic_Network_Context.md",
-    VAULT_ROOT / "001_Semantic_Network_Overview.md",
+    VAULT_ROOT / "PROJECT_CONTEXT.md",
+    VAULT_ROOT / "Project Overview.md",
     VAULT_ROOT / "ai" / "README.md",
     VAULT_ROOT / "ai" / "init-project-workflow.md",
     VAULT_ROOT / "ai" / "init-project-feedback.md",
@@ -32,8 +32,8 @@ REQUIRED_FILES = [
 CHECK_LINK_FILES = [
     VAULT_ROOT / "README.md",
     VAULT_ROOT / "AGENTS.md",
-    VAULT_ROOT / "000_Semantic_Network_Context.md",
-    VAULT_ROOT / "001_Semantic_Network_Overview.md",
+    VAULT_ROOT / "PROJECT_CONTEXT.md",
+    VAULT_ROOT / "Project Overview.md",
     VAULT_ROOT / "ai" / "README.md",
     VAULT_ROOT / "ai" / "init-project-workflow.md",
     VAULT_ROOT / "ai" / "init-project-feedback.md",
