@@ -12,13 +12,21 @@ This folder contains the thematic synthesis notes where cross-paper argument dev
 
 ## Creating Synthesis Notes
 
-When starting your literature review, you should define 5-8 core themes or dimensions you want to track across your sources. Create a markdown note for each theme in this folder.
+This project uses the following synthesis notes:
 
-*Example themes for a new project:*
-- `[Theme 1: The Core Problem]` — mechanisms, context, why it matters
-- `[Theme 2: Theoretical Foundations]` — key theories and models
-- `[Theme 3: Intervention Strategies]` — how the problem is solved
-- `[Theme 4: Outcomes & Evaluation]` — how success is measured
+### Special roles
+
+- [[Literature Review/Synthesis/The Problem]] — information overload and structural collapse issues
+- [[Literature Review/Synthesis/Design Strategies]] — concrete agent architectures
+- [[Literature Review/Synthesis/Open Questions]] — where graph-based retrieval systems still drop the ball on local execution
+
+### Cross-reading themes
+
+- [[Literature Review/Synthesis/Graph Extraction Accuracy]] — graph extraction accuracy from unstructured text
+- [[Literature Review/Synthesis/Semantic Drift Prevention]] — strategies for preventing semantic drift during continuous graph expansion
+- [[Literature Review/Synthesis/Context-Awareness and Personalization]] — context-awareness and user personalization mechanisms
+- [[Literature Review/Synthesis/Local Computational Overhead]] — computational overhead of running agent loops locally
+- [[Literature Review/Synthesis/Human-in-the-Loop Interaction Design]] — human-in-the-loop interaction design paradigms
 
 ## Suggested Structure for Each Note
 
@@ -28,7 +36,7 @@ Every synthesis note should generally use the same shape:
 - **Current Argument**
   - **Working Thoughts** — your thinking-in-progress, paper-by-paper. Reactions, positions-in-development, ideas being tested. Scratch material.
   - **Synthesized Position** — draft-quality prose with inline citekeys. Fills in once multiple papers back a claim. Eventually becomes project draft material.
-- **Paper Contributions** — lightweight log of what each paper contributes. Each paper is an H3 subheading wikilinked to its main paper note with the citekey as alias (e.g. `### [[smith2024|smith2024]]`).
+- **Paper Contributions** — lightweight log of what each paper contributes. Each paper is an H3 subheading wikilinked to its main paper note with the citekey as alias.
 - **Related** — wikilinks to the other synthesis notes and to [[Literature Review/Overview Synthesis and Reading Map]]
 
 ## The Discipline
@@ -48,5 +56,6 @@ For AI-assisted integration after a paper is read and Zotero notes are complete,
 
 - [[Literature Review/README]] — full workflow guide
 - [[Literature Review/Overview Synthesis and Reading Map]] — reading plan and source map
-- [[Project Overview]] — project overview
+- [[000_Semantic_Network_Context]]
+- [[001_Semantic_Network_Overview]] — project overview
 - [[Glossary]] — stable definitions

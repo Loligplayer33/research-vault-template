@@ -31,7 +31,7 @@ Use this note in future AI chats when changing or extending the Zotero Integrati
 ## Current Commands
 
 - `Import overview paper`
-  - creates the main thinking note for overview paper types
+  - creates the thin wrapper/navigation note for overview paper types
   - output path:
     - `Literature Review/imports/{{citekey}}.md`
   - important:
@@ -73,15 +73,15 @@ Use this note in future AI chats when changing or extending the Zotero Integrati
 
 ### Main note
 
-- Holds the project-facing thinking note.
+- Holds the thin project-facing wrapper for the paper.
 - Links to the companion raw note using:
   - `Literature Review/zotero_notes/{{citekey}}-zotero-notes`
-- Should stay focused on:
-  - why the paper matters
-  - key concepts
-  - distinctions
-  - tensions
-  - relevance
+- Usually stays focused on navigation and light orientation:
+  - Zotero metadata
+  - link to the raw Zotero note
+  - optional one-sentence takeaway or context that needs to be visible without opening the Zotero note
+
+The main note is not the primary place for paper-level thinking. The full reading record lives in Zotero/Zotero notes, and cross-paper argument lives in synthesis notes.
 
 ### Raw Zotero note
 
@@ -96,23 +96,18 @@ Use this note in future AI chats when changing or extending the Zotero Integrati
 
 ## How To Work With A Paper
 
-After import, the thinking work should happen in the main literature note, not inside the plugin config or the raw Zotero note.
+After import, use the main literature note as the paper wrapper and navigation point. Reading-time reactions stay in Zotero/Zotero notes; cross-paper integration happens in synthesis notes.
 
 1. Add the paper to Zotero.
-2. Read and annotate it in Zotero.
-3. Run `Import overview paper`.
-4. Run `Import Zotero notes` for the same paper.
-5. Open the main note in `Literature Review/imports/` or its curated `Literature Review/Papers/` location, and the companion raw note in `Literature Review/zotero_notes/`.
-6. Leave the raw Zotero note and its assets in `zotero_notes` so re-imports keep updating the same files.
-7. Fill the main note with the project-facing synthesis:
-   - why the paper matters
-   - key concepts
-   - distinctions or categories
-   - tensions
-   - relevance for the project
-   - next follow-up
+2. Before close reading, optionally run [[ai/paper-reading-guide-workflow]] on the paper PDF to decide what to read closely, skim, or skip.
+3. Read and annotate it in Zotero.
+4. Run `Import overview paper`.
+5. Run `Import Zotero notes` for the same paper.
+6. Open the main note in `Literature Review/imports/` or its curated `Literature Review/Papers/` location, and the companion raw note in `Literature Review/zotero_notes/`.
+7. Leave the raw Zotero note and its assets in `zotero_notes` so re-imports keep updating the same files.
+8. Integrate from the Zotero note into the relevant synthesis notes. Optionally use [[ai/synthesis-integration-workflow]] after Zotero notes are complete.
 
-The plugin creates the shell and imports the raw material. The analytical sections are completed manually.
+The plugin creates the wrapper and imports the raw material. Analytical integration is completed manually in synthesis notes or with the synthesis integration checklist.
 
 ## Important Caveats
 

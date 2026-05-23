@@ -23,31 +23,57 @@ This file is written for the agent, not as a user-facing checklist. Do not dump 
 Success means:
 
 - The user received the level of orientation they asked for: introduction only, full installation/personalization, or both.
+- The Git remote was checked so normal users do not accidentally track project work against the upstream template repository.
 - The user has Zotero, Better BibTeX, Obsidian, Zotero Integration, Local REST API, and an MCP path configured or clearly marked as a follow-up.
 - The agent can read the vault through MCP, or the setup state clearly says MCP is still pending.
 - Zotero Integration can create both the main paper note and raw Zotero note with citekey-based paths.
 - If the user requested personalization, the vault context files reflect the user's project rather than generic placeholders, or the setup state clearly says file updates are pending until an agent with file access continues.
 - If the user requested literature setup, the literature review has an initial guiding question, synthesis themes, and reading map, or the setup state clearly says those file updates are pending until an agent with file access continues.
-- Future agents can start from `AGENTS.md`, `PROJECT_CONTEXT.md`, `Project Overview.md`, `Literature Review/README.md`, and `ai/README.md` without re-interviewing the user.
+- Future agents can start from `AGENTS.md`, the current project context file, the current project overview file, `Literature Review/README.md`, and `ai/README.md` without re-interviewing the user.
 
 ## Execution Rules for the Agent
 
-1. **One step at a time:** Ask a set of related questions, wait for the user's response, execute the file changes for that phase, and then move to the next phase.
+1. **One step at a time:** Ask one question or one small set of tightly related questions, wait for the user's response, execute the file changes for that step, and then move to the next step. Maintain the current phase pointer. If the user says to continue, resume where the conversation left off unless they clearly ask to skip ahead.
 2. **Persistent State Tracking:** Track setup state from the start, but adapt to the access available. If the agent has local file access or working MCP access, create `ai/INIT_STATE.md` as the durable checklist and update it after each phase. If the agent does not yet have file access because MCP is not configured, keep the same checklist in the chat and tell the user it will be written to `ai/INIT_STATE.md` as soon as file access is available. Delete the file only after the user confirms setup is complete.
 3. **Continuous Validation:** When the agent has local file access or working MCP file access, run `python3 ai/scripts/validate_ai_docs.py` after modifying structural files, workflow docs, paths, or naming conventions. Do not move to the next phase until the script passes. If the agent does not yet have file access, clearly mark validation as pending in the chat-backed checklist and run it as soon as file access becomes available.
-4. **Update Python Scripts if Renaming:** If the user chooses to rename foundational files like `PROJECT_CONTEXT.md` or `Project Overview.md`, you MUST update the hardcoded paths in `ai/scripts/validate_ai_docs.py` to match the new names.
+4. **Update Python Scripts if Renaming:** If the user chooses to rename foundational files like the project context note or project overview note, you MUST update the hardcoded paths in `ai/scripts/validate_ai_docs.py` to match the new names.
 5. **No Secret Capture:** Never ask the user to paste long-lived API keys into vault notes. It is okay to ask whether they configured a key, but secrets belong in their MCP client config or local plugin config, not shared documentation.
 6. **Manual-App Boundary:** Some installation steps happen in Zotero, Obsidian, or the user's MCP client and cannot be performed by the agent. Guide the user precisely, then ask them to confirm the result before continuing.
 7. **Template Hygiene:** Keep the template project-neutral. Do not introduce thesis-specific themes, source lists, author examples, supervisor details, private paths, or personal names.
 8. **Path Convention:** Unless this workflow says otherwise, paths are vault-relative from the repository root. Run validation from the root with `python3 ai/scripts/validate_ai_docs.py`.
 9. **Adaptive Conversation:** At the beginning, ask whether the user wants a vault introduction, the full installation/personalization process, or both. Follow that choice. Do not force installation questions on a user who only asked for orientation.
 10. **File-Access Gate:** Any step that creates, edits, renames, deletes, validates, or inspects vault files requires local file access or working MCP file access. If neither exists, collect the user's answers, keep a chat-backed checklist, mark the file work as pending, and stop before claiming that phase is complete.
+11. **Silent Feedback Capture:** If the user says "note for later" or "do not respond to this", record the feedback in `ai/INIT_STATE.md` or [[ai/init-project-feedback]] when file access exists, then continue without summarizing the note back.
+12. **No Invented Project Content:** Examples are allowed as examples only. Never write invented project details, deliverables, source lists, or claims into project files. If the user asks for help answering, offer sample formulations and wait for the user's chosen wording.
+13. **Developer/Test Mode:** If the user is testing the template as a developer, explicitly mark this in `ai/INIT_STATE.md`. In developer mode, wrong-vault MCP, retained test imports, retained `ai/INIT_STATE.md`, or deferred Phase 7 cleanup can be valid if clearly recorded.
+14. **Repository Ownership Check:** For normal users, run `python3 ai/scripts/check_template_remote.py` before personalization. If it says `origin` still points to `Loligplayer33/research-vault-template`, guide the user to create their own repository or use GitHub's "Use this template" flow before continuing with project-specific edits. Developers intentionally editing the template may continue in developer/test mode.
 
 ---
 
 ## Phase 0: Mode Selection & Workspace Orientation
 
-**Goal:** Decide the conversation path first, then make sure the user and agent are operating in the correct folder and understand what will be edited.
+**Goal:** Before anything else, make sure this vault belongs to the user's own repository, then decide the conversation path and confirm the correct folder.
+
+### 0A. Repository Ownership Check
+
+This check happens at the very start, before orientation or personalization.
+
+If the agent has local file access, run:
+
+```bash
+python3 ai/scripts/check_template_remote.py
+```
+
+Handle the result:
+
+- **Pass:** Continue setup. Mark `Git remote status: own project remote`.
+- **No Git repository or no origin:** Guide the user to create their own repository and connect it before project-specific setup. Do not personalize files until they confirm this is intentional.
+- **Origin points to `Loligplayer33/research-vault-template`:** Stop normal setup. Tell the user they are still connected to the upstream template repository. Guide them to either use GitHub's **Use this template** button or replace `origin` with their own repository URL.
+- **Template developer:** If the user explicitly says they are the template developer and intend to edit the template repository, mark `Mode: developer-test` and continue.
+
+If the agent has no local file access, ask the user to run the command locally or check `git remote -v` before continuing.
+
+### 0B. Mode Selection & Workspace Orientation
 
 Ask the user:
 1. Do you want an explanation of how this vault works before we begin setup?
@@ -92,6 +118,10 @@ Branching rule:
 - File renames: none
 - Manual follow-ups: none
 - State file: active / pending until file access is available
+- Mode: normal / developer-test
+- Current phase pointer: Phase 0
+- Deferred cleanup: none
+- Git remote status: pending
 ```
 
 - If file access exists, run `python3 ai/scripts/validate_ai_docs.py` and fix any template health issue before continuing.
@@ -114,9 +144,9 @@ Run this track if the user wanted an explanation. **Crucial Rule:** Do NOT dump 
 - **The context files agents read first**:
   - `AGENTS.md` - canonical agent rules, project summary, and conventions.
   - `CLAUDE.md` - symlink to `AGENTS.md`.
-  - `PROJECT_CONTEXT.md` - project framing, deliverables, import logic, and workflow assumptions.
-  - `Project Overview.md` - one-page current-state map: what the project is, what is done, what is open, and what to do next.
-  - `Glossary.md` - stable definitions, acronyms, contested terms, and open conceptual questions. This file starts empty and grows organically during your research.
+  - the project context note - project framing, deliverables, import logic, and workflow assumptions.
+  - the project overview note - one-page current-state map: what the project is, what is done, what is open, and what to do next.
+  - `Glossary.md` - stable definitions, acronyms, contested terms, and open conceptual questions. This file starts empty and grows organically during research; setup should not populate it.
 
 #### 2. The literature review folder
 
@@ -147,12 +177,13 @@ Run this track if the user wanted an explanation. **Crucial Rule:** Do NOT dump 
 Explain the normal loop:
 
 1. Add a paper to Zotero.
-2. Read and annotate in Zotero.
-3. Run `Import overview paper` to create `Literature Review/imports/{citekey}.md`.
-4. Run `Import Zotero notes` to create `Literature Review/zotero_notes/{citekey}-zotero-notes.md`.
-5. Use the main note for project-facing thinking and the Zotero note for raw source material.
-6. Open the relevant synthesis notes and add compressed cross-paper contributions.
-7. If requested, use `ai/synthesis-integration-workflow.md` to generate a checklist that guides the integration.
+2. Before close reading, use `ai/paper-reading-guide-workflow.md` when the user wants triage help. It connects the paper to the current project context, reading map, synthesis notes, and existing arguments so the user knows what to read closely, skim, or skip.
+3. Read and annotate in Zotero.
+4. Run `Import overview paper` to create `Literature Review/imports/{citekey}.md`.
+5. Run `Import Zotero notes` to create `Literature Review/zotero_notes/{citekey}-zotero-notes.md`.
+6. Treat the main note as a thin wrapper/navigation hub to the Zotero notes and linked material. It may hold light context, but the durable reading record lives in Zotero/Zotero notes and cross-paper argument lives in synthesis notes.
+7. Integrate from the Zotero notes into the relevant synthesis notes.
+8. If requested, use `ai/synthesis-integration-workflow.md` to generate a checklist that guides the integration.
 
 #### 5. The two main AI-assisted research workflows
 
@@ -164,6 +195,7 @@ Explain the normal loop:
   - Trigger: after reading, when Zotero notes are complete.
   - Output: HTML checklist in `ai/outputs/{citekey}-synthesis-checklist.html`.
   - It maps the paper into synthesis notes with PC/WT/SP/META items and records skipped notes deliberately.
+  - Abbreviations: PC = Paper Contributions, WT = Working Thoughts, SP = Synthesized Position, META = cleanup/linking/caveat tasks.
 
 #### 6. What setup will personalize
 
@@ -171,8 +203,8 @@ Explain that the full setup process will:
 
 - Verify Zotero, Better BibTeX, Obsidian, Local REST API, MCP, and Zotero imports.
 - Replace generic placeholders with the user's project title, deliverables, and research question.
-- Create or update synthesis themes.
-- Seed the reading map.
+- Optionally create or update synthesis themes.
+- Optionally seed the reading map.
 - Finalize agent context so future chats can start quickly.
 
 ### How to close the introduction
@@ -221,7 +253,7 @@ Recommended Better BibTeX checks:
 - Keep citekey generation stable. Defaults are acceptable for most projects.
 - If the user wants a custom citekey pattern, decide it now before importing literature.
 - Do not change citekey rules casually after Obsidian notes have been generated.
-- Verify at least one Zotero item shows a citekey before continuing.
+- Verify at least one Zotero item shows a citekey before continuing. To find it, select the Zotero item and look in the item details panel on the right, near the top.
 
 ### 1C. Obsidian
 
@@ -236,6 +268,7 @@ Guide the user:
 
 Explain why this is required:
 - Zotero Integration imports Zotero metadata, notes, and PDF annotations into Obsidian using the templates in `Literature Review/templates/`.
+- The vault may include templates and a preconfigured `data.json`, but it does not ship plugin binaries. The user must install and enable the plugin manually in each vault.
 
 Guide the user:
 1. In Obsidian, open `Settings > Community plugins > Browse`.
@@ -257,20 +290,22 @@ Guide the user:
 
 If the plugin UI or field names differ from this file, use the Zotero Integration Data Explorer on a test item to inspect available template variables before editing templates.
 
-### 1E. Local REST API Plugin
+### 1E. Local REST API & MCP Server Plugin
 
 Explain why this is required:
-- Local REST API exposes the vault to AI tools through a local API.
+- Local REST API & MCP Server exposes the vault to AI tools through a local API and MCP server.
 - It is commonly used by Obsidian MCP servers so agents can read and update vault files.
 - API keys and generated TLS material are local secrets and must not be committed or pasted into shared notes.
+- The vault does not ship this plugin binary. The user must install it manually in Obsidian.
 
 Guide the user:
 1. In Obsidian, open `Settings > Community plugins > Browse`.
-2. Search for `Local REST API`.
+2. Search for `Local REST API & MCP Server` or `Local REST API`.
 3. Install and enable it.
-4. Open `Settings > Local REST API`.
+4. Open `Settings > Local REST API & MCP Server`.
 5. Note the port. The secure HTTPS default is commonly `27124`; insecure HTTP is commonly `27123` if explicitly enabled.
 6. Copy the API key only into your MCP client configuration. **WARNING:** Do not paste your existing MCP config into the chat here, as it may contain API keys from other services. Do not save the API key into any vault notes.
+7. If configuring Claude Code, scroll down in the plugin settings and use the included MCP configuration example as the reference shape.
 
 **Execution:**
 - Do not modify plugin secrets.
@@ -291,7 +326,7 @@ Ask which MCP client/environment the user uses:
 
 Explain the generic configuration requirements:
 - Obsidian must be open.
-- The Local REST API plugin must be enabled.
+- The Local REST API & MCP Server plugin must be enabled in the target vault.
 - For common Python-based Obsidian MCP servers, the user needs `uvx`, which is installed with `uv`.
   - macOS/Linux install option: `curl -LsSf https://astral.sh/uv/install.sh | sh`
   - Homebrew install option: `brew install uv`
@@ -332,9 +367,15 @@ For Cursor or another MCP client, use the same command, args, and environment va
 Verification prompts for the user or agent:
 1. Can the MCP list the vault root files?
 2. Can it read `AGENTS.md`?
-3. Can it read `PROJECT_CONTEXT.md`?
+3. Can it read the current project context file (the default context note, or the renamed context file if Phase 4 renamed it)?
 4. Can it read `Literature Review/README.md`?
 5. Can it read `ai/init-project-workflow.md`?
+6. Does the content match this vault, not another Obsidian vault? Check the project title or template placeholders, not just file names.
+
+If MCP points to the wrong vault:
+- Tell the user which evidence suggests the wrong vault.
+- Ask them to open the intended vault in Obsidian and reload MCP if MCP is required.
+- If the agent has direct local file access and the user wants to continue, continue via direct file access and record MCP as a follow-up.
 
 If MCP is not available:
 - Continue initialization using direct file access if the agent has it.
@@ -384,60 +425,80 @@ Troubleshooting:
 
 ## Phase 4: Discovery & Core Project Details
 
-**Agent Action:** Ask the user to define the core parameters of their research. (If your platform supports interactive UI forms but they fail, fall back to asking these questions via free-text).
+**Goal:** Capture only the user's explicit project details and write them into the core context files. This phase can stay minimal. The user can expand the framing in a later agent chat after setup.
 
-Ask the user:
-1. What is the working title of the project?
-2. What is the main research question or core problem you are investigating?
-3. What are the key deliverables? Examples: systematic literature review, taxonomy, framework, prototype, long-form manuscript, article draft, dataset, design artifact.
-4. What type of project is this? Examples: academic research project, seminar paper, dissertation chapter, capstone project, independent research project, product research project.
-5. Do you want to rename the core contextual files? Defaults:
-   - keep `PROJECT_CONTEXT.md`
-   - keep `Project Overview.md`
-6. Are there external locations the vault should know about, such as a separate codebase, writing repository, Overleaf project, data folder, or prototype folder?
+Ask one question at a time:
 
-*Wait for response.*
+1. Working title.
+   - Ask: "What do you call this project right now?"
+   - Offer examples only as examples, not content to write.
+2. Main research question or core problem.
+   - Ask for one or two sentences.
+   - If the user is unsure, offer formulation help and wait for their chosen wording.
+3. Key deliverables.
+   - Ask what they plan to produce.
+   - Examples: systematic literature review, taxonomy, framework, prototype, manuscript, article draft, dataset, design artifact.
+4. Project type.
+   - Examples: seminar paper, thesis, dissertation chapter, capstone, independent research project, product research project.
+5. Core file names.
+   - Defaults: keep the standard project context note and standard project overview note.
+   - If the user wants project-specific names, ask for the exact filenames.
+
+Do not ask about external locations during setup. Those can be documented later if the user brings them up.
+
+The user may answer all Phase 4 questions at once. If they do, process only what they explicitly provided.
 
 **Execution:**
 - If the agent does not have file access, do not claim personalization is complete. Record the user's answers in the chat-backed checklist, mark `File update status: pending until file access is available`, and tell the user to continue this phase with Cursor, Claude Code/Cowork, or another agent that can edit the repository.
-- If the agent has file access, inject the provided answers into the placeholder brackets inside `PROJECT_CONTEXT.md` and `Project Overview.md`.
+- If the agent has file access, inject only the provided answers into the placeholder brackets inside the project context note and project overview note, or their renamed equivalents. Leave unknowns blank, placeholdered, or explicitly "not specified yet"; do not invent missing details.
 - If the user requested file renames and the agent has file access, execute the renames, update all internal wikilinks in the vault that point to them, and update `ai/scripts/validate_ai_docs.py` to check for the new filenames.
 - If file access exists, update `AGENTS.md` only where the project-level summary or renamed paths require it.
+- Do not modify `Glossary.md` during setup.
+- Add a short note in the project context or overview inviting the user to start a follow-up chat to expand framing if the file remains sparse.
 - If file access exists, run validation script. Update `ai/INIT_STATE.md` if it exists; otherwise update the chat-backed checklist.
 
 ---
 
 ## Phase 5: Literature Review & Synthesis Setup
 
-**Agent Action:** Ask the user to define the foundational structure for their literature review.
+**Goal:** Optionally seed the literature-review scaffolding. This phase is useful but not required. The user may skip it, provide only a guiding question, name only one or two themes, or leave the reading map empty for now.
 
-Ask the user:
-1. What is the primary guiding question for the literature review?
-2. What are 4-8 core themes, dimensions, or arguments to track across readings? Provide 2-3 examples based on Phase 4 answers to help them brainstorm.
-3. Do any synthesis notes need a special role, such as "The Problem", "Theory", "Methods", "Design Strategies", "Outcomes", or "Open Questions"?
-4. Do you have initial must-read papers, authors, venues, or domains?
-5. Which sources are must-read versus broader/contextual sources?
-6. Do you want a minimum viable reading set called out in the reading map so future agents can use the verdict flag-and-ask rule?
+First explain:
+- This phase creates optional scaffolding for future reading.
+- Synthesis notes and the reading map can be populated later.
+- The reading map is optional and can be removed if the user does not want it.
+- The agent will only create notes and source lists the user explicitly names or confirms.
 
-*Wait for response.*
+Ask one question at a time unless the user volunteers a complete answer:
+
+1. Do you want to seed the literature-review scaffolding now, or skip this phase for later?
+2. If yes: What is the primary guiding question for the literature review?
+3. Are there themes, dimensions, or arguments you already know you want to track?
+   - Offer 2-3 examples based on Phase 4 answers, but ask before creating notes from them.
+4. Do any synthesis notes need special roles, such as "The Problem", "Theory", "Methods", "Design Strategies", "Outcomes", or "Open Questions"?
+5. Do you have initial must-read papers, authors, venues, or domains?
+6. If sources were named: which are must-read versus broader/contextual?
+7. If must-read sources were named: do you want a minimum viable reading set called out in the reading map so future agents can use the verdict flag-and-ask rule?
 
 **Execution:**
+- If the user skips, mark Phase 5 skipped and do not create synthesis notes or reading-map content.
 - If the agent does not have file access, do not claim literature setup is complete. Record the guiding question, themes, source priorities, and requested note roles in the chat-backed checklist, mark `File update status: pending until file access is available`, and pause file updates until an agent with file access continues.
-- If file access exists, create a new markdown file for each theme inside `Literature Review/Synthesis/`. Use the structure in `Literature Review/Synthesis/README.md`:
+- If file access exists, create a new markdown file only for each user-confirmed theme or special role inside `Literature Review/Synthesis/`. Use the structure in `Literature Review/Synthesis/README.md`:
+  - Frontmatter
   - Intro paragraph
   - Current Argument
   - Working Thoughts
   - Synthesized Position
   - Paper Contributions
   - Related
-- If file access exists, update `Literature Review/Overview Synthesis and Reading Map.md` with:
-  - the guiding question
-  - phases or priority groups
-  - must-read / minimum viable sources if provided
-  - broader source lists if provided
-  - the synthesis themes
-- If file access exists, update `Literature Review/README.md` to reflect the specific guiding question and theme structure.
-- If file access exists, update `Literature Review/Sources by Domain.md` with any domains or source banks the user named.
+- If file access exists, update `Literature Review/Overview Synthesis and Reading Map.md` only with provided or confirmed material:
+  - guiding question, if provided
+  - phases or priority groups, if provided
+  - must-read / minimum viable sources, if provided
+  - broader source lists, if provided
+  - confirmed synthesis themes
+- If file access exists, update `Literature Review/README.md` only enough to reflect confirmed guiding question and theme structure.
+- If file access exists, update `Literature Review/Sources by Domain.md` only with domains or source banks the user named.
 - If file access exists, run validation script. Update `ai/INIT_STATE.md` if it exists; otherwise update the chat-backed checklist.
 
 ---
@@ -445,6 +506,11 @@ Ask the user:
 ## Phase 6: Workflow Calibration
 
 **Goal:** Ensure the user understands how the working workflows should behave after initialization.
+
+Before asking preferences, briefly re-explain the two AI workflows:
+
+- Paper reading guide: used before close reading. It reads the paper against the current project context, reading map, and synthesis notes, then tells the user what to read closely, skim, or skip. It is needed to keep reading effort aligned with the current argument rather than treating every paper as equally important.
+- Synthesis integration: used after reading and Zotero-note completion. It reads the Zotero notes and synthesis notes, then creates an HTML checklist for moving only the paper's relevant contributions into synthesis notes. It is needed to prevent duplication of Zotero notes and to keep cross-paper synthesis deliberate.
 
 Ask the user:
 1. Do you want paper reading guides to remain ephemeral inline chat artifacts by default?
@@ -484,16 +550,19 @@ Ask the user:
 **Agent Action:** Present a completion summary.
 - Tell the user initialization is complete, or clearly list any manual setup still pending.
 - Print the final checklist of what was accomplished.
-- Delete `ai/INIT_STATE.md` only if it exists and only after the user confirms no follow-up setup steps are needed.
-- **Cleanup:** Remove the `init-project-workflow` reference from `ai/README.md`.
-- Ask the user if they want to delete this `ai/init-project-workflow.md` file now that setup is complete.
+- Do not mark Phase 7 complete until cleanup has actually run or the user explicitly defers cleanup.
+- Delete `ai/INIT_STATE.md` only if it exists and only after feedback has been moved to a durable note when needed and the user confirms no follow-up setup steps are needed.
+- Ask whether disposable Zotero test imports should be deleted if they are still present.
+- In developer/test mode, it is acceptable to keep `ai/INIT_STATE.md`, test imports, or local workspace state temporarily, but record that cleanup was deferred.
+- Keep `ai/init-project-workflow.md` and its reference in `ai/README.md` for reusable template vaults. Only offer to archive or remove the setup runbook if this is now a private initialized project and the user explicitly wants that.
 - Ask which paper, source list, or project task they want to tackle first.
 
 ## Related Notes
 
 - [[AGENTS]]
-- [[PROJECT_CONTEXT]]
+- current project context file
 - [[ai/README]]
+- [[ai/init-project-feedback]]
 - [[ai/zotero-import-template-guide]]
 - [[ai/paper-reading-guide-workflow]]
 - [[ai/synthesis-integration-workflow]]

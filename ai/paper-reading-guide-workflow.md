@@ -25,19 +25,19 @@ If it is unclear whether the user wants this workflow, a full summary, a Zotero-
 
 ## Required Context
 
-The paper PDF is provided by the user in the message. Everything else lives in the Obsidian vault and should be pulled fresh via the Obsidian MCP when available. The user iterates on these files between sessions, so a snapshot from a prior chat or earlier attachment is unsafe to rely on. Do not ask the user to attach vault files when the MCP can retrieve them.
+The paper PDF is provided by the user in the message. Everything else lives in the Obsidian vault and should be pulled fresh with the best available file access: direct local file access when the agent has it, or the Obsidian MCP when that is the available route. The user iterates on these files between sessions, so a snapshot from a prior chat or earlier attachment is unsafe to rely on. Do not ask the user to attach vault files when local file access or MCP can retrieve them.
 
-### How to pull (MCP, default path)
+### How to pull
 
-Use `obsidian_batch_get_file_contents` to fetch the always-pull set in one call. Pass the exact vault-relative paths listed below. Use `obsidian_get_file_contents` for a single conditional file. Use `obsidian_list_files_in_dir` only if you suspect a new file exists in `Literature Review/Synthesis/` or another structural folder that this workflow does not yet name.
+With direct local file access, read the always-pull set from the repository root. With MCP, use `obsidian_batch_get_file_contents` to fetch the always-pull set in one call. Pass the exact vault-relative paths listed below. Use `obsidian_get_file_contents` for a single conditional file. Use `obsidian_list_files_in_dir` only if you suspect a new file exists in `Literature Review/Synthesis/` or another structural folder that this workflow does not yet name.
 
-If the MCP is unreachable or returns errors for required files, say so and stop. Ask the user to attach the missing files manually rather than producing the guide without them. Do not improvise around missing context.
+If neither direct file access nor MCP can retrieve required files, say so and stop. Ask the user to attach the missing files manually rather than producing the guide without them. Do not improvise around missing context.
 
 ### Always pull (vault-relative paths)
 
 1. `AGENTS.md` - agent rules and completion checklist.
-2. `PROJECT_CONTEXT.md` - current project framing.
-3. `Project Overview.md` - current state map of the deliverables.
+2. `000_Semantic_Network_Context.md` - current project framing.
+3. `001_Semantic_Network_Overview.md` - current state map of the deliverables.
 4. `Literature Review/Overview Synthesis and Reading Map.md` - reading plan, source priorities, and current cross-source synthesis. Without this, the guide reroutes the user through ground already covered and "Why this matters" collapses into generic relevance claims.
 5. All synthesis notes in `Literature Review/Synthesis/`.
 6. `Glossary.md` - stable term definitions. Match the glossary's framing rather than improvising definitions.
@@ -50,11 +50,11 @@ If the MCP is unreachable or returns errors for required files, say so and stop.
 
 Only three cases:
 
-- The Obsidian MCP is unavailable for this session.
+- Neither direct file access nor the Obsidian MCP is available for this session.
 - A required file errors on retrieval and the cause is not a transient hiccup (try once more before reporting).
 - You suspect a vault file you do not know about exists and would change the guide. In that case, list the directory first; if a candidate appears, name it to the user and ask whether to pull it.
 
-Never ask the user to attach the always-pull set as a default. The MCP exists so the workflow does not bottleneck on their attention.
+Never ask the user to attach the always-pull set as a default when local file access or MCP can retrieve it.
 
 ## Pre-Flight Check
 
@@ -76,7 +76,7 @@ The verdict is one of:
 - **Moderate** - meaningfully extends, qualifies, or replicates an existing claim in the synthesis without adding a new mechanism or framing. Earns a guide, but more sections are Skim/Skip and total length is shorter.
 - **Light** - on-topic but adds little the existing library does not already have at equal or better quality. Earns a compressed artifact, not a section-by-section walk. The compressed artifact is honest about why the paper does not earn more attention.
 
-Decide the verdict by holding the paper against the current state of the vault: `PROJECT_CONTEXT.md`, `Project Overview.md`, the current synthesis notes, and the cross-source synthesis section of the reading map. Ask: against this existing structure, what does the paper actually add? If the answer is "another instance of a point already made by existing sources," the verdict tends Light. If the answer names a specific mechanism, boundary condition, or framing the synthesis does not yet capture, the verdict tends High. Use judgment grounded in vault content; do not apply a fixed checklist.
+Decide the verdict by holding the paper against the current state of the vault: `000_Semantic_Network_Context.md`, `001_Semantic_Network_Overview.md`, the current synthesis notes, and the cross-source synthesis section of the reading map. Ask: against this existing structure, what does the paper actually add? If the answer is "another instance of a point already made by existing sources," the verdict tends Light. If the answer names a specific mechanism, boundary condition, or framing the synthesis does not yet capture, the verdict tends High. Use judgment grounded in vault content; do not apply a fixed checklist.
 
 The verdict is not "is this paper exactly on the project topic." Papers can be High-relevance because they provide contrast cases, methods, adoption evidence, problem-mechanism evidence, boundary conditions, or counterweights. The check is about how much the paper adds against what the user already has.
 
@@ -194,13 +194,13 @@ A "Skip unless needed" tag is appropriate when:
 
 If starting from a fresh chat, summarize the workflow like this:
 
-> When the user asks for a reading guide on a paper PDF, fetch the vault context fresh via the Obsidian MCP; do not ask them to attach files unless the MCP is unavailable or a required read fails. Use `obsidian_batch_get_file_contents` for the always-pull set: `PROJECT_CONTEXT.md`, `Project Overview.md`, `Literature Review/Overview Synthesis and Reading Map.md`, the synthesis notes in `Literature Review/Synthesis/`, and `Glossary.md`. Pull optional anchor notes if the paper clearly touches their territory. Read the PDF. Commit a relevance verdict (High / Moderate / Light) by holding the paper against the current synthesis state. If a must-read or top-priority paper is downgraded to Moderate or Light, flag-and-ask before producing the guide. Produce inline markdown: High verdict -> full five-part guide; Moderate -> compressed five-part guide; Light -> title + overview + verdict + "read this much, then stop." Do not archive. Offer to draft Zotero bullets and synthesis contributions as a follow-up.
+> When the user asks for a reading guide on a paper PDF, fetch the vault context fresh with direct local file access or the Obsidian MCP; do not ask them to attach files unless required reads are unavailable. Pull the always-pull set: `000_Semantic_Network_Context.md`, `001_Semantic_Network_Overview.md`, `Literature Review/Overview Synthesis and Reading Map.md`, the synthesis notes in `Literature Review/Synthesis/`, and `Glossary.md`. Pull optional anchor notes if the paper clearly touches their territory. Read the PDF. Commit a relevance verdict (High / Moderate / Light) by holding the paper against the current synthesis state. If a must-read or top-priority paper is downgraded to Moderate or Light, flag-and-ask before producing the guide. Produce inline markdown: High verdict -> full five-part guide; Moderate -> compressed five-part guide; Light -> title + overview + verdict + "read this much, then stop." Do not archive. Offer to draft Zotero bullets and synthesis contributions as a follow-up.
 
 ## Related Notes
 
 - [[AGENTS]]
-- [[PROJECT_CONTEXT]]
-- [[Project Overview]]
+- [[000_Semantic_Network_Context]]
+- [[001_Semantic_Network_Overview]]
 - [[Literature Review/README]]
 - [[Literature Review/Synthesis/README|Synthesis folder]]
 - [[Literature Review/Overview Synthesis and Reading Map]]

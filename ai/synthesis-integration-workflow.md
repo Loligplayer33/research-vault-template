@@ -28,8 +28,8 @@ Trigger only when the user has confirmed their Zotero notes are complete. If the
 Always read fresh. The user iterates on these files between conversations.
 
 1. `AGENTS.md` - agent rules and completion checklist.
-2. `PROJECT_CONTEXT.md` - current project framing.
-3. `Project Overview.md` - current state map of the project deliverables.
+2. `000_Semantic_Network_Context.md` - current project framing.
+3. `001_Semantic_Network_Overview.md` - current state map of the project deliverables.
 4. `Literature Review/Overview Synthesis and Reading Map.md` - reading plan, source priorities, and current cross-source synthesis.
 5. The paper's Zotero notes file: `Literature Review/zotero_notes/{citekey}-zotero-notes.md`.
    - Filenames are citekey-based and should follow the stable pattern `{citekey}-zotero-notes.md`.
@@ -54,7 +54,7 @@ The verdict is one of:
 - **Moderate** - meaningfully extends, qualifies, or replicates an existing claim without adding a new mechanism or framing. Integrate to one or two best-fitting notes; PC bullets and at most one WT update; no SP drafts unless the paper is the third or later converging source on a claim already pending; do not seed empty WTs unless the paper is a natural anchor.
 - **Light** - on-topic but adds little the existing library does not already have at equal or better quality. One PC bullet in the single best-fitting note. No WT updates, no SP drafts, no seeding of empty WTs. The checklist artifact is still produced so the verdict, cleanup task, and skip reasoning are recorded, but the body is small.
 
-Decide the verdict by holding the paper against the current state of the vault: `PROJECT_CONTEXT.md`, `Project Overview.md`, the synthesis notes, and the cross-source synthesis in the reading map. Ask: against this existing structure, what does the paper actually add? Use judgment grounded in vault content; do not apply a fixed checklist.
+Decide the verdict by holding the paper against the current state of the vault: `000_Semantic_Network_Context.md`, `001_Semantic_Network_Overview.md`, the synthesis notes, and the cross-source synthesis in the reading map.
 
 The verdict is not "is this paper exactly on the project topic." Papers can be High-relevance because they provide contrast cases, methods, adoption evidence, problem-mechanism evidence, boundary conditions, or counterweights. The check is about how much the paper adds against what the user already has.
 
@@ -196,7 +196,7 @@ Before producing the checklist, confirm:
 
 - Paper's Zotero notes have been read fresh.
 - All synthesis notes have been read fresh.
-- `PROJECT_CONTEXT.md`, `Project Overview.md`, and the reading map have been read.
+- `000_Semantic_Network_Context.md`, `001_Semantic_Network_Overview.md`, and the reading map have been read.
 - Optional anchor notes were pulled if the paper clearly touches their territory.
 - Relevance verdict committed before starting triage.
 - Verdict-to-triage consistency: if the paper has Heavy material for any note, verdict should not be Light; if it has Medium material for multiple notes, verdict probably should not be Light.
@@ -211,7 +211,7 @@ If starting from a fresh chat, summarize the workflow like this:
 ## Related Notes
 
 - [[AGENTS]]
-- [[PROJECT_CONTEXT]]
+- [[000_Semantic_Network_Context]]
 - [[Literature Review/README]]
 - [[Literature Review/Synthesis/README|Synthesis folder]]
 - [[Literature Review/Overview Synthesis and Reading Map]]

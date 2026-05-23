@@ -31,11 +31,16 @@ If you are adding a new reusable handoff note, add it to this folder and list it
 ## Current Guides
 
 - [[ai/init-project-workflow]]
+- [[ai/init-project-feedback]]
 - [[ai/zotero-import-template-guide]]
 - [[ai/synthesis-integration-workflow]]
 - [[ai/paper-reading-guide-workflow]]
 
 Use [[ai/init-project-workflow]] as the canonical setup runbook for new projects. It covers local installation, Better BibTeX, Zotero Integration, Local REST API, MCP verification, Zotero import testing, and project personalization.
+
+Use [[ai/init-project-feedback]] when improving the setup workflow. It preserves developer feedback from a hands-on initialization test and separates open design feedback from transient setup state.
+
+Before project-specific personalization, agents should run `python3 ai/scripts/check_template_remote.py`. Normal users should not keep `origin` pointed at `Loligplayer33/research-vault-template`; they should use GitHub's template flow or connect the vault to their own repository first.
 
 The canonical reading-plan note is [[Literature Review/Overview Synthesis and Reading Map]]. Do not recreate duplicate reading-map notes at the vault root.
 
@@ -47,8 +52,8 @@ Reading guides are inline, ephemeral scaffolding unless the user explicitly asks
 
 ## Current Cross-Vault Anchors
 
-- [[PROJECT_CONTEXT]]
-- [[Project Overview]]
+- [[000_Semantic_Network_Context]]
+- [[001_Semantic_Network_Overview]]
 - [[Literature Review/README]]
 - [[Literature Review/Overview Synthesis and Reading Map]]
 - [[Literature Review/Synthesis/README|Synthesis]]

@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -14,25 +15,35 @@ VAULT_ROOT = WORKSPACE_ROOT
 REQUIRED_FILES = [
     VAULT_ROOT / "AGENTS.md",
     VAULT_ROOT / "CLAUDE.md",
-    VAULT_ROOT / "PROJECT_CONTEXT.md",
+    VAULT_ROOT / "000_Semantic_Network_Context.md",
+    VAULT_ROOT / "001_Semantic_Network_Overview.md",
     VAULT_ROOT / "ai" / "README.md",
     VAULT_ROOT / "ai" / "init-project-workflow.md",
+    VAULT_ROOT / "ai" / "init-project-feedback.md",
+    VAULT_ROOT / "ai" / "scripts" / "check_template_remote.py",
     VAULT_ROOT / "ai" / "zotero-import-template-guide.md",
     VAULT_ROOT / "Literature Review" / "README.md",
-    VAULT_ROOT / ".obsidian" / "plugins" / "obsidian-zotero-desktop-connector" / "data.json",
+    VAULT_ROOT / "Literature Review" / "Overview Synthesis and Reading Map.md",
+    VAULT_ROOT / "Literature Review" / "Synthesis" / "README.md",
     VAULT_ROOT / ".obsidian" / "plugins" / "obsidian-zotero-desktop-connector" / "data.json",
 ]
 
 # CLAUDE.md files are symlinks to AGENTS.md — only check AGENTS.md to avoid duplicate wikilink errors
 CHECK_LINK_FILES = [
+    VAULT_ROOT / "README.md",
     VAULT_ROOT / "AGENTS.md",
-    VAULT_ROOT / "PROJECT_CONTEXT.md",
+    VAULT_ROOT / "000_Semantic_Network_Context.md",
+    VAULT_ROOT / "001_Semantic_Network_Overview.md",
     VAULT_ROOT / "ai" / "README.md",
     VAULT_ROOT / "ai" / "init-project-workflow.md",
+    VAULT_ROOT / "ai" / "init-project-feedback.md",
     VAULT_ROOT / "ai" / "paper-reading-guide-workflow.md",
     VAULT_ROOT / "ai" / "synthesis-integration-workflow.md",
     VAULT_ROOT / "ai" / "zotero-import-template-guide.md",
     VAULT_ROOT / "Literature Review" / "README.md",
+    VAULT_ROOT / "Literature Review" / "Overview Synthesis and Reading Map.md",
+    VAULT_ROOT / "Literature Review" / "Synthesis" / "README.md",
+    VAULT_ROOT / "Literature Review" / "Sources by Domain.md",
 ]
 
 # Symlinks that must point to the correct target
@@ -54,6 +65,7 @@ FORBIDDEN_SUBSTRINGS = [
 ]
 
 WIKILINK_RE = re.compile(r"\[\[([^\]]+)\]\]")
+MARKDOWN_FILE_REF_RE = re.compile(r"`([^`]+\.md)`")
 
 
 def collect_markdown_targets(root: Path) -> set[str]:
@@ -76,7 +88,7 @@ def check_wikilinks(errors: list[str]) -> None:
             continue
         text = path.read_text(encoding="utf-8")
         for match in WIKILINK_RE.finditer(text):
-            raw_target = match.group(1).split("|", 1)[0].rstrip("/")
+            raw_target = match.group(1).split("|", 1)[0].split("#", 1)[0].rstrip("/")
             if "{{" in raw_target or "}}" in raw_target:
                 continue
             if raw_target not in known_targets:
@@ -104,6 +116,22 @@ def check_forbidden_strings(errors: list[str]) -> None:
         for token in FORBIDDEN_SUBSTRINGS:
             if token in text:
                 errors.append(f"Forbidden stale string '{token}' found in {path.relative_to(VAULT_ROOT)}")
+
+
+def check_markdown_file_refs(errors: list[str]) -> None:
+    """Catch stale literal `.md` references in shared docs after file renames."""
+    for path in CHECK_LINK_FILES:
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        for match in MARKDOWN_FILE_REF_RE.finditer(text):
+            raw = match.group(1)
+            if "{{" in raw or "}}" in raw or "{" in raw or "}" in raw:
+                continue
+            candidate = VAULT_ROOT / raw
+            if not candidate.exists() and "/" not in raw:
+                # Root-level note reference, e.g. `Project Overview.md`.
+                errors.append(f"Stale markdown file reference in {path.relative_to(VAULT_ROOT)}: `{raw}`")
 
 
 def check_plugin_config(errors: list[str]) -> None:
@@ -137,9 +165,23 @@ def check_plugin_config(errors: list[str]) -> None:
         errors.append("Import overview paper should use imageBaseNameTemplate 'annotation'")
 
 
+def is_git_ignored(path: Path) -> bool:
+    rel_path = path.relative_to(VAULT_ROOT)
+    result = subprocess.run(
+        ["git", "check-ignore", "-q", str(rel_path)],
+        cwd=VAULT_ROOT,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+    )
+    return result.returncode == 0
+
+
 def check_local_rest_config(errors: list[str]) -> None:
     path = VAULT_ROOT / ".obsidian" / "plugins" / "obsidian-local-rest-api" / "data.json"
     if not path.exists():
+        return
+    if is_git_ignored(path):
         return
     
     try:
@@ -164,6 +206,7 @@ def main() -> int:
     check_symlinks(errors)
     check_wikilinks(errors)
     check_forbidden_strings(errors)
+    check_markdown_file_refs(errors)
     check_plugin_config(errors)
     check_local_rest_config(errors)
 

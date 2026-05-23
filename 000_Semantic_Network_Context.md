@@ -4,18 +4,18 @@ This vault is the working space for an academic research project.
 
 ## What the Project Is About
 
-The project is titled **"[Insert Project Title Here]"**. It investigates **[Insert Main Subject/Research Question Here]**.
-
-The core problem: **[Describe the core problem your research addresses here.]**
-
-The project aims to **[Describe the goals/aims of the project here.]**
+The project is titled **"Project - Local AI Semantic Network Architectures"**. It investigates **how local AI automation can assist in organizing large personal knowledge bases, like an Obsidian vault, specifically to reduce manual linking and tag clutter**.
 
 ## The Deliverables
 
-1. **Systematic Literature Review** — [Describe deliverable 1]
-2. **[Deliverable 2]** — [Describe deliverable 2]
-3. **[Deliverable 3]** — [Describe deliverable 3]
-4. **[Deliverable 4]** — [Describe deliverable 4]
+1. **Systematic Literature Review** — Summarizing current PKM frameworks and automated tagging methods.
+2. **Formal Taxonomy** — For note types and relationships.
+3. **Basic Prototype Tool or Local Script** — To suggest backlinks.
+4. **Concise Project Manuscript** — Documenting the results.
+
+## Project Type
+
+Seminar paper / independent research project.
 
 ## What This Vault Is For
 
@@ -28,6 +28,12 @@ This vault is the research and thinking workspace for the project. It is where:
 
 This vault does not have to be the codebase, prototype folder, or final writing repository. If those live elsewhere, document the handoff here.
 
+> After setup, you can start a new agent conversation to expand this framing, refine deliverables, and develop synthesis themes in more detail.
+
+## Repository Ownership
+
+New users should not track project work against the upstream template repository. At the start of setup, run `python3 ai/scripts/check_template_remote.py` and confirm the Git remote points to the user's own repository, not `Loligplayer33/research-vault-template`. Template developers may intentionally keep the upstream remote when working in developer/test mode.
+
 ## Current Literature Workflow
 
 The current literature-review workflow in this vault is centered in:
@@ -35,7 +41,7 @@ The current literature-review workflow in this vault is centered in:
 - [[Literature Review/README]]
 - [[ai/zotero-import-template-guide]]
 
-The workflow spans three layers: Zotero (reading record), per-paper thin headers in Obsidian, and thematic synthesis notes in the [[Literature Review/Synthesis/README|Synthesis folder]] where arguments develop across papers.
+The workflow spans three layers: Zotero (reading record), per-paper thin wrappers in Obsidian, and thematic synthesis notes in the [[Literature Review/Synthesis/README|Synthesis folder]] where arguments develop across papers.
 
 Treat substantive argument text in `Literature Review/Synthesis/` as user-owned. Cleanup may update bottom reading/tracking stubs there, but `Current Argument`, `Working Thoughts`, and `Synthesized Position` should only be rewritten when the user explicitly asks.
 
@@ -50,7 +56,7 @@ Treat substantive argument text in `Literature Review/Synthesis/` as user-owned.
 ### Current Zotero Integration Commands
 
 - `Import overview paper`
-  - creates the main thin header note for a source
+  - creates the thin wrapper/navigation note for a source
   - writes to `Literature Review/imports/{{citekey}}.md`
 - `Import Zotero notes`
   - creates the companion raw note with Zotero item notes and PDF annotations
@@ -70,7 +76,7 @@ The detailed literature framing for this project should be treated as **provisio
 
 For current reading orientation and source priorities, consult:
 
-- [[Project Overview]]
+- [[001_Semantic_Network_Overview]]
 - [[Literature Review/Overview Synthesis and Reading Map]]
 - [[Literature Review/README]]
 
@@ -78,7 +84,7 @@ Do not assume that one current source list, one paper, or one early synthesis th
 
 ## Important Links
 
-- [[Project Overview]] — Where the project stands currently
+- [[001_Semantic_Network_Overview]] — Where the project stands currently
 - [[Literature Review/README|Literature Review Workflow]]
 - [[AGENTS|Agent Rules]]
 - [[ai/README|AI Scripts & Tools]]
